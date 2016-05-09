@@ -42,7 +42,7 @@ public class Qunit
 			}
         }
         catch (SQLException ex) {
-            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.getBean]");
+            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.getBean]" + ex.getMessage());
         }
         finally {
             if (rst != null) try { rst.close(); } catch (SQLException ex) {}
@@ -71,7 +71,7 @@ public class Qunit
 			bean.setExplain(rst.getString(14));
             return bean;
         } catch (SQLException ex) {
-            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.makeBean]");
+            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.makeBean]" + ex.getMessage());
         }
     }
 
@@ -95,7 +95,7 @@ public class Qunit
 		sql.append("Select a.excount, a.cacount, a.userid, ");
         sql.append("	   to_char(a.regdate, 'YYYY-MM-DD HH24:MI') regdate, ");
         sql.append("	   to_char(a.up_date, 'YYYY-MM-DD HH24:MI') up_date, ");
-        sql.append("	   b.qtype, c.difficulty, isnull(d.make_cnt,0) ");
+        sql.append("	   b.qtype, c.difficulty, nullif(d.make_cnt,0) ");
 		sql.append("From q as a inner join r_qtype as b ");
         sql.append("	 on a.id_q = ? and a.id_qtype = b.id_qtype inner join r_difficulty as c ");
         sql.append("	 on a.id_difficulty1 = c.id_difficulty ");
@@ -116,7 +116,7 @@ public class Qunit
 			}
         }
         catch (SQLException ex) {
-            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.getQBean]");
+            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.getQBean]" + ex.getMessage());
         }
         finally {
             if (rst != null) try { rst.close(); } catch (SQLException ex) {}
@@ -139,7 +139,7 @@ public class Qunit
 			bean.setMake_cnt(rst.getInt(8));
             return bean;
         } catch (SQLException ex) {
-            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.makeQBean]");
+            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.makeQBean]" + ex.getMessage());
         }
     }
 
@@ -173,7 +173,7 @@ public class Qunit
 				return (QunitBean[]) beans.toArray(new QunitBean[0]);
 			}
 		} catch (SQLException ex) {
-			throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.getBeans]");
+			throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.getBeans]" + ex.getMessage());
 		} finally {
 			if (rst != null) try { rst.close(); } catch (SQLException ex) {}
 			if (stm != null)	try {	stm.close();	} catch (SQLException ex) {}
@@ -206,7 +206,7 @@ public class Qunit
 			bean.setRefbody3(rst.getString(19));
             return bean;
         } catch (SQLException ex) {
-            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.makeBean]");
+            throw new QmTmException("문제정보를 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [Qunit.makeBean]" + ex.getMessage());
         }
     }
 }

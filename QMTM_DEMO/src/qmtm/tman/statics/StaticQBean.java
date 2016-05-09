@@ -2,7 +2,7 @@ package qmtm.tman.statics;
 
 import java.text.DecimalFormat;
 
-public class ExamStaticBean {
+public class StaticQBean {
 
 	private long id_q;
 	private int id_qtype;
@@ -35,7 +35,7 @@ public class ExamStaticBean {
 	private String id_chapter;
 	private double allotting;
 
-	public ExamStaticBean() {
+	public StaticQBean() {
 		df = new DecimalFormat(",##0.0"); 
 	}
 	
