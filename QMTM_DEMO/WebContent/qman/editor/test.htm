@@ -1,0 +1,111 @@
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+
+<Script language="JavaScript">
+var strs = "(문1) 1번문제입니다.  (문1) 2번문제입니다.  (문1)   7번문제입니다.  (문1) 4번문제입니다. (문1) 4번문제입니다. (문1) 4번문제입니다. (문1) 4번문제입니다. (문1) 4번문제입니다. (문1) 4번문제입니다. (문1) 4번문제입니다. (문1 ) 4번문제입니다. ( 문1) 4번문제입니다. ( 문 1) 4번문제입니다. (  문 1  ) 4번문제입니다. (  문 1  ) 4번문제입니다.";
+
+var q1 = "(";
+var q2 = "문";
+var q4 = ")";
+var q_res = q1+q2+q4;
+
+var qcounts = 15;
+
+var arrQs = new Array();
+
+q = blank_remove(strs,q1,q4,q2,q_res);
+
+var arrImsiQs = new Array();
+var arrImsiQs2 = new Array();
+
+var qstrs = "";
+var qs = "";
+
+arrImsiQs = q.split(q_res,-1);
+
+var qcounts2 = arrImsiQs.length-1;
+
+for(var j=0;j<qcounts-qcounts2;j++) {
+
+	q = blank_remove(q,q1,q4,q2,q_res);
+}
+
+arrImsiQs2 = q.split(q_res,-1);
+
+for(var i=1;i<arrImsiQs2.length;i++) {
+		
+	qstrs = q_res+" "+arrImsiQs2[i];
+
+	qs = qs + qstrs.replace(q_res, q1+q2+i+q4);
+}
+
+document.write(qs);
+document.write("<BR><BR>");
+
+function blank_remove(s,q1,q2,str1,str2) {
+
+	var str = s;
+	
+	//for(var k=0;k<=200;k++) {
+		str = str.replace(q1+""+str1+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+k+"   "+q2, q1+str1+q4);
+
+		str = str.replace(q1+" "+str1+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+k+"   "+q2, q1+str1+q4);
+
+		str = str.replace(q1+"  "+str1+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+k+"   "+q2, q1+str1+q4);
+
+
+		
+		str = str.replace(q1+""+str1+" "+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+" "+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+" "+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+" "+k+"   "+q2, q1+str1+q4);
+
+		str = str.replace(q1+" "+str1+" "+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+" "+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+" "+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+" "+k+"   "+q2, q1+str1+q4);
+
+		str = str.replace(q1+"  "+str1+" "+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+" "+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+" "+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+" "+k+"   "+q2, q1+str1+q4);
+
+
+
+		str = str.replace(q1+""+str1+"  "+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+"  "+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+"  "+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+""+str1+"  "+k+"   "+q2, q1+str1+q4);
+
+		str = str.replace(q1+" "+str1+"  "+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+"  "+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+"  "+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+" "+str1+"  "+k+"   "+q2, q1+str1+q4);
+
+		str = str.replace(q1+"  "+str1+"  "+k+""+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+"  "+k+" "+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+"  "+k+"  "+q2, q1+str1+q4);
+		str = str.replace(q1+"  "+str1+"  "+k+"   "+q2, q1+str1+q4);
+	//}
+
+	return str;
+}
+
+</Script>
+
+ </HEAD>
+
+ <BODY>
+  
+ </BODY>
+</HTML>

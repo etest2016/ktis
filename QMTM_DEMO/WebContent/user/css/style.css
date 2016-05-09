@@ -1,0 +1,123 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	color: #707070;
+	font-size: 12px;
+	list-style: url(file:../images/li.gif);
+	line-height: 150%;
+}
+   
+a:link { text-decoration: none; color: #008DA0; font-weight: bold; }
+a:visited { text-decoration: none; color: #008DA0; font-weight: bold; }
+a:active { text-decoration: none; }
+a:hover { color: #22D0D7; text-decoration: none; font-weight: bold;}
+
+table{
+	font-size: 12px;
+	color: #707070;
+	line-height: 150%;
+}
+
+img {
+	border: 0px;
+}
+
+.main { 
+	padding-top: 15px;
+	padding-left: 25px;
+}
+
+.login {		
+	padding-top:132px;
+	font-size: 11px;
+	font-weight: bold;
+	color: #ffffff;
+	letter-spacing: -1;
+}
+
+.menu {
+	padding-top: 21px;
+	padding-left: 45px;
+}
+
+.sub {
+	background-image: url(../images/li.gif);
+	background-repeat: no-repeat;
+	text-indent: 22px; 
+	margin-left: 20px;
+	margin-top: 15px;	
+	padding-bottom: 12px;
+	color: #0B5E75;
+	font-weight: bold;
+}
+
+.text {
+	padding-left: 40px;
+	padding-bottom: 15px;
+	padding-right: 50px;
+}
+
+.table {
+	margin-left: 30px;
+	padding-bottom: 0px;
+	width: 550px;
+}
+.ta {
+	margin-left: 0px;
+	padding-bottom: 0px;
+	width: 540px;
+}
+.tt {
+	background-image: url(../images/bg_tt_b.gif);
+	background-repeat: repeat-x;
+	height: 22px;
+	font-size: 11px;
+	font-weight: bold;
+	color: White;
+	text-align: center;
+	padding-top: 2px;
+}
+.td {
+	background-image: url(../images/BBC8C8.gif);
+	background-repeat: repeat-x;
+	background-position: bottom;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.td2 {
+	background-image: url(../images/BBC8C8.gif);
+	background-repeat: repeat-x;
+	background-position: bottom;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.search
+{
+	BORDER-RIGHT: #aaaaaa 1px dotted;
+	BORDER-TOP: #aaaaaa 1px dotted;
+	BORDER-LEFT: #aaaaaa 1px dotted;
+	BORDER-BOTTOM: #aaaaaa 1px dotted;
+	background-color: #fafafa;
+	height: 35px;
+}
+.c {
+	font-family: "±¼¸²Ã¼", "µ¸¿òÃ¼";
+	font-size: 9pt;	
+	line-height: 120%;
+}
+.point { color: #4FA9B0; }
+.point_b { color: #008DA0; font-weight: bold; }
+.blank {
+	background-image: url(../images/BBC8C8.gif);
+	background-repeat: repeat-x;
+	background-position: bottom;
+	text-align: center;
+	color: #4FA9B0;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	font-weight: bold;
+}

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='euc-kr'?>
+<rows>
+<row id='test1'>
+<cell>test1</cell>
+<cell><![CDATA[테스트1^ans_view.jsp?id_exam=E160308155635BS&userid=test1]]></cell>
+<cell>1</cell>
+<cell>2016-04-19 13:30</cell>
+<cell>2016-04-20 10:44</cell>
+<cell>0:0:0:0:0:0:0:1</cell>
+<cell>0.0</cell>
+<cell></cell>
+<cell></cell>
+</row>
+</rows>

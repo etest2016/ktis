@@ -1,0 +1,91 @@
+<%
+//******************************************************************************
+//   프로그램 : edit_form.jsp
+//   모 듈 명 : 개별문제 수정
+//   설    명 : 개별문제 수정화면
+//   테 이 블 : 
+//   자바파일 : 
+//   작 성 일 : 2008-09-01
+//   작 성 자 : 이테스트 석준호
+//   수 정 일 : 
+//   수 정 자 : 
+//	 수정사항 : 
+//******************************************************************************
+%>
+
+<%@ page contentType="text/html;charset=euc-kr" %>
+<%@ page import="java.io.*,java.util.*,com.tagfree.util.*,org.w3c.tidy.*,org.w3c.dom.*, qmtm.*, qmtm.qman.question.*, qmtm.tman.exam.*, qmtm.admin.*, qmtm.admin.etc.*" %>
+
+<%
+	response.setDateHeader("Expires", 0);
+	request.setCharacterEncoding("EUC-KR");
+
+	String id_q = request.getParameter("id_q");
+	if (id_q == null) { id_q = ""; } else { id_q = id_q.trim(); }
+
+	if (id_q.length() == 0) {
+%>
+	<script language="javascript">
+		alert("해당 화면에 대한 권한이 없습니다.");
+		history.back();
+	</script>
+<%	
+	}
+
+	QBean bean = null;
+
+	try {
+		QUtil.getBean(id_q);
+	} catch(Exception ex) {
+		out.println(ex.getMessage());
+	}
+
+	
+	
+	String qtype = request.getParameter("qtype");
+	String qtype_msg = "";
+
+	if(qtype.equals("1")) {
+		qtype_msg = "OX형";
+	} else if(qtype.equals("2")) {
+		qtype_msg = "선다형";
+	} else if(qtype.equals("3")) {
+		qtype_msg = "복수답안형";
+	} else if(qtype.equals("4")) {
+		qtype_msg = "단답형";
+	} else if(qtype.equals("5")) {
+		qtype_msg = "논술형";
+	}
+
+	int excount = Integer.parseInt(request.getParameter("excount"));
+	int cacount = Integer.parseInt(request.getParameter("cacount"));
+
+	String multi_sel = "";
+
+	if(cacount > 1) {
+		multi_sel = "checkbox";
+	} else {
+		multi_sel = "radio";
+	}
+
+	int heights = 600;
+
+	// 문제용도목록 가지고오기
+	QuseBean[] quse = null;
+
+	try {
+		quse = QuseUtil.getBeans();
+	} catch(Exception ex) {
+		out.println(ex.getMessage());
+	}
+	
+	// 난이도 정보 가지고오기
+	RdifficultBean[] diffs = null;
+
+    try {
+	    diffs = RdifficultUtil.getBeans();
+    } catch(Exception ex) {
+	    out.println(ex.getMessage());
+    }
+%>
+
