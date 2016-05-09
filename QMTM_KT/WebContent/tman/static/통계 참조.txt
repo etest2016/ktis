@@ -1,0 +1,229 @@
+Private Function AnalysisUserAnsPerQ(xcn As ADODB.Connection, _
+                                        ByVal pIDSubject As String) As Long
+
+
+Dim ST As Single, ET As Single
+Dim rsData As New ADODB.Recordset
+Dim rsQs As New ADODB.Recordset
+Dim arrOX() As String
+Dim arrAnswer() As String
+Dim arrQ() As String
+Dim i As Integer, m As Integer, n As Integer
+Dim lRows As Long
+Dim lIDQ As Long
+Dim iIDQType As Integer
+Dim iIDValidType As Integer
+Dim sEx As String
+Dim sOX As String
+Dim sAns As String
+Dim sAnsTmp As String
+Dim sMsg As String
+Dim iNrSet As Integer
+Dim sIDQs As String
+
+On Error GoTo eh
+
+AnalysisUserAnsPerQ = ENUM_WR.WR_ERROR
+
+ST = Timer
+
+'////////////////////////////////////////////////////////////////////////////
+'q bank
+'////////////////////////////////////////////////////////////////////////////
+gsSQL = "SELECT b.id_q, b.id_qtype, b.id_valid_type"
+gsSQL = gsSQL & " FROM exam_q a, q b"
+gsSQL = gsSQL & " WHERE (a.id_q = b.id_q)"
+gsSQL = gsSQL & " AND (a.id_exam = '" & mIDExam & "')"
+gsSQL = gsSQL & " AND (b.id_valid_type = 0)"
+'''gsSQL = gsSQL & " AND (b.id_qtype <> " & gEnumQType.QT_Essay & ")"
+gsSQL = gsSQL & " ORDER BY b.id_qtype"
+If mSQLLog = 1 Then RaiseEvent SQLExecuting(gsSQL)
+With rsData
+    .Open gsSQL, xcn, adOpenStatic, adLockReadOnly, adCmdText
+    If .EOF Then
+        RaiseEvent Working(0, "문제은행에서 출제된 문제를 검색할 수 없어서 작업을 종료합니다.")
+        AnalysisUserAnsPerQ = ENUM_WR.WR_SUCCESS
+        GoTo out
+    End If
+    
+    ReDim typExamQ(1 To .RecordCount)
+    m = 1
+    Do While Not .EOF
+        DoEvents
+        typExamQ(m).ID_Q = .Fields("id_q")
+        m = m + 1
+        .MoveNext
+    Loop
+    .MoveFirst
+End With
+
+'//-----------------------------------------------------------------------
+'//OLD
+'//-----------------------------------------------------------------------
+'////////////////////////////////////////////////////////////////////////////
+'exam paper & exam ans
+'////////////////////////////////////////////////////////////////////////////
+'''gsSQL = "SELECT a.answers, a.oxs, p.qs"
+'''gsSQL = gsSQL & " FROM exam_paper p, exam_ans a"
+'''gsSQL = gsSQL & " WHERE (p.id_exam = a.id_exam)"
+'''gsSQL = gsSQL & " AND (p.id_subject = a.id_subject)"
+'''gsSQL = gsSQL & " AND (p.nr_set = a.nr_set)"
+'''gsSQL = gsSQL & " AND (a.id_exam = '" & mIDExam & "')"
+'''gsSQL = gsSQL & " AND (a.id_subject = '" & pIDSubject & "')"
+'''gsSQL = gsSQL & " AND (a.yn_end = 'Y')"
+'''gsSQL = gsSQL & " AND (a.oxs IS NOT NULL)"
+'''gsSQL = gsSQL & " AND (a.answers IS NOT NULL)"
+'''gsSQL = gsSQL & " AND (p.qs IS NOT NULL)"
+'''If mIncludeTestID = 0 Then gsSQL = gsSQL & " AND (a.userid NOT LIKE 'tman@%')"
+'//-----------------------------------------------------------------------
+'//NEW
+'//-----------------------------------------------------------------------
+gsSQL = "SELECT nr_set, answers, oxs"
+gsSQL = gsSQL & " FROM exam_ans"
+gsSQL = gsSQL & " WHERE (id_exam = '" & mIDExam & "')"
+gsSQL = gsSQL & " AND (yn_end = 'Y')"
+gsSQL = gsSQL & " AND (oxs IS NOT NULL)"
+gsSQL = gsSQL & " AND (answers IS NOT NULL)"
+If mIncludeTestID = 0 Then gsSQL = gsSQL & " AND (userid NOT LIKE 'tman@%')"
+gsSQL = gsSQL & " ORDER BY nr_set"
+
+iNrSet = 0
+'//-----------------------------------------------------------------------
+
+With rsQs
+    .Open gsSQL, xcn, adOpenStatic, adLockReadOnly, adCmdText
+    If .EOF Then
+        RaiseEvent Working(0, "시험지와 답안지 데이타가 없어서 작업을 종료합니다.")
+        AnalysisUserAnsPerQ = ENUM_WR.WR_SUCCESS
+        GoTo out
+    End If
+    RaiseEvent Working(0, "문항 데이타 처리를 하고 있습니다. 잠시만 기다립시요.")
+    Do While Not .EOF
+        DoEvents
+        If mCancel = 1 Then GoTo work_cancel
+        
+'//-----------------------------------------------------------------------
+'//OLD
+'//-----------------------------------------------------------------------
+'''        arrQ = Split(RTrim(.Fields("qs")) & "", gscDLM_Set1)
+'//-----------------------------------------------------------------------
+'//NEW
+'//-----------------------------------------------------------------------
+        If iNrSet <> .Fields("NR_SET").value Then
+            iNrSet = .Fields("NR_SET").value
+            GetNrSetIDQs xcn, mIDExam, pIDSubject, iNrSet, sIDQs
+        End If
+        
+        If sIDQs <> "" Then
+        arrQ = Split(sIDQs, gscDLM_Set1)
+'//-----------------------------------------------------------------------
+                
+        arrOX = Split(RTrim(.Fields("oxs")) & "", gscDLM_Set1)
+        arrAnswer = Split(RTrim(.Fields("answers")) & "", gscDLM_Set1)
+    
+        For i = 0 To UBound(arrQ)
+            lIDQ = CLng(arrQ(i))
+            If UBound(arrOX) >= i Then
+                sOX = LCase(arrOX(i))
+            Else
+                sOX = "x"
+            End If
+            If sOX = "p" Then sOX = "o" '부분 채점은 맞은 걸로 처리
+            If UBound(arrAnswer) >= i Then
+                sAns = arrAnswer(i)
+            Else
+                sAns = ""
+            End If
+            rsData.Filter = "id_q = " & lIDQ
+            If Not rsData.EOF Then
+                iIDQType = CInt(rsData("id_qtype"))
+                iIDValidType = CInt(rsData("id_valid_type"))
+                If iIDValidType = 0 Then
+                    For m = 1 To UBound(typExamQ)
+                        If typExamQ(m).ID_Q = lIDQ Then
+                            n = m
+                            Exit For
+                        End If
+                    Next
+'////////////////////////////////////////////////////////////////////////////
+                    If sOX = "o" Then
+                        typExamQ(n).O_Cnt = typExamQ(n).O_Cnt + 1
+                    Else
+                        typExamQ(n).X_Cnt = typExamQ(n).X_Cnt + 1
+                    End If
+'////////////////////////////////////////////////////////////////////////////
+                    If (iIDQType <> gEnumQType.QT_FillinBlank) And (iIDQType <> gEnumQType.QT_Essay) Then
+                        If iIDQType = gEnumQType.QT_MultipleResponse Then
+                            For m = 0 To UBound(Split(sAns, gscDLM_CA2))
+                                sAnsTmp = Split(sAns, gscDLM_CA2)(m)
+                                If CheckEx(sAnsTmp) = True Then
+                                    typExamQ(n).Ex_Cnt(sAnsTmp) = typExamQ(n).Ex_Cnt(sAnsTmp) + 1
+                                End If
+                            Next
+                        Else
+                            If CheckEx(sAns) = True Then
+                                typExamQ(n).Ex_Cnt(sAns) = typExamQ(n).Ex_Cnt(sAns) + 1
+                            End If
+                        End If
+                    End If
+'////////////////////////////////////////////////////////////////////////////
+                End If
+            End If
+        Next
+        
+'//-----------------------------------------------------------------------
+'//NEW
+'//-----------------------------------------------------------------------
+        End If
+'//-----------------------------------------------------------------------
+        
+        .MoveNext
+    Loop
+End With
+
+Call CloseRec(rsQs)
+Call CloseRec(rsData)
+
+For i = 1 To UBound(typExamQ)
+    If mCancel = 1 Then GoTo work_cancel
+    gsSQL = "UPDATE exam_q SET o_cnt = " & CLng(typExamQ(i).O_Cnt)
+    gsSQL = gsSQL & ", x_cnt = " & CLng(typExamQ(i).X_Cnt)
+    gsSQL = gsSQL & ", ex1_cnt = " & CLng(typExamQ(i).Ex_Cnt(1))
+    gsSQL = gsSQL & ", ex2_cnt = " & CLng(typExamQ(i).Ex_Cnt(2))
+    gsSQL = gsSQL & ", ex3_cnt = " & CLng(typExamQ(i).Ex_Cnt(3))
+    gsSQL = gsSQL & ", ex4_cnt = " & CLng(typExamQ(i).Ex_Cnt(4))
+    gsSQL = gsSQL & ", ex5_cnt = " & CLng(typExamQ(i).Ex_Cnt(5))
+    gsSQL = gsSQL & " WHERE (id_exam = '" & mIDExam & "')"
+    gsSQL = gsSQL & " AND (id_q = " & CLng(typExamQ(i).ID_Q) & ")"
+    If mSQLLog = 1 Then RaiseEvent SQLExecuting(gsSQL)
+    xcn.Execute gsSQL, lRows, adCmdText
+    If mSQLLog = 1 Then RaiseEvent SQLExecutingResult(lRows & " Row(s) affected")
+'    With typExamQ(i)
+'       Debug.Print i, .ID_Q, .O_Cnt, .X_Cnt, .Ex_Cnt(1), .Ex_Cnt(2), .Ex_Cnt(3), .Ex_Cnt(4), .Ex_Cnt(5)
+'    End With
+Next
+'////////////////////////////////////////////////////////////////////////////
+ET = Timer
+RaiseEvent Working(0, "작업 시간: " & Round(ET - ST, 2) & " sec.")
+AnalysisUserAnsPerQ = ENUM_WR.WR_SUCCESS
+
+out:
+    Erase typExamQ
+    Call CloseRec(rsData)
+    Call CloseRec(rsQs)
+    Exit Function
+
+work_cancel:
+    AnalysisUserAnsPerQ = ENUM_WR.WR_CANCEL
+    GoTo out
+eh:
+    If Err.Number <> 0 Then
+        AnalysisUserAnsPerQ = ENUM_WR.WR_ERROR
+        sMsg = Err.Description & ", "
+        sMsg = sMsg & "Error Number: " & Err.Number & ", "
+        sMsg = sMsg & "Error Source: " & Err.Source
+        RaiseEvent Working(0, sMsg)
+        GoTo out
+    End If
+
+End Function

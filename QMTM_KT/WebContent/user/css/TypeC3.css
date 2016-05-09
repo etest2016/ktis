@@ -1,0 +1,71 @@
+Body { margin: 0px; 
+/*scrollbar-face-color: white; scrollbar-shadow-color: #CCC; scrollbar-highlight-color: #CCC; scrollbar-3dlight-color: white; scrollbar-darkshadow-color: white; scrollbar-track-color: white; scrollbar-arrow-color: #CCC;*/ 
+	scrollbar-face-color: #f8f8f8; 
+	scrollbar-shadow-color: #CCC; 
+	scrollbar-highlight-color: #FFF; 
+	scrollbar-3dlight-color: #f8f8f8; 
+	scrollbar-darkshadow-color: #FFF; 
+	scrollbar-track-color: #FCFCFC; 
+	scrollbar-arrow-color: #CCC;
+}
+a:link { color: blue; text-decoration: none; font:12px; }
+a:visited { color: blue; text-decoration: none; font:12px; }
+a:active { color: blue; text-decoration: none; font:12px; }
+a:hover { color: blue; text-decoration: none; font:12px; }
+hr { border-top: 1px dotted #C4C4C4; border-bottom: 1px solid #FFF; }
+
+.point { color: blue; }
+.button { margin-top: 20px; }
+
+/* TypeC 03À¯Çü */
+
+.Layout { width: 100%; height: 100%; }
+
+.Layout #Top TD { height: 150px; color: #000; }
+.Layout #Top #A { background-image: url(../images/TypeC/03/top_left.gif); width: 55px; }
+.Layout #Top #B { background-image: url(../images/TypeC/03/top_bg3.gif); vertical-align: top; }
+.Layout #Top #B #L { float: left; background-image: url(../images/TypeC/03/top_bg1.gif); height: 120px; LIST-STYLE-IMAGE: url(../images/TypeC/03/list2.gif); }
+.Layout #Top #B #L #Logo { background-image: url(../images/TypeC/03/top_logo.gif); width:240px; vertical-align: top; padding-top: 19px; }
+.Layout #Top #B #L #Title { font: bold 13px; vertical-align: top; padding-top: 20px; padding-right: 50px; }
+.Layout #Top #B #L #Time { font: bold 12px; vertical-align: top; padding-top: 18px; }
+.Layout #Top #B #L #Time #Title{ padding-top: 0px; }
+.Layout #Top #B #L #Time #timeLimitHMS { font: bold 15px; text-align: left; padding-left: 0px; }
+.Layout #Top #B #L #Bg { background-image: url(../images/TypeC/03/top_bg2.gif); width: 112px; }
+.Layout #Top #B #R { float: right; }	
+.Layout #Top #C { background-image: url(../images/TypeC/03/top_right.gif); width: 60px; }
+
+.Layout #Main {  }	
+.Layout #Main #A { background-image: url(../images/TypeC/03/main_left.gif); }	
+.Layout #Main #B { vertical-align: top; padding: 0px 0px 0px 0px; }
+.Layout #Main #B #Guide { text-align: center; margin-top: 20px; margin-right: 0px; }	
+.Layout #Main #B #Guide #img { vertical-align: bottom; padding-bottom: 40px; }
+.Layout #Main #B #Guide #table { width: 575px; font-size: 12px; line-height: 180%; LIST-STYLE-IMAGE: url(../images/TypeC/03/list.gif); }	
+.Layout #Main #B #Guide #table #A { background-image: url(../images/TypeC/03/guide.gif); background-position: top; background-repeat: no-repeat; height: 150px; }	
+.Layout #Main #B #Guide #table #B { background-image: url(../images/TypeC/03/table_main.gif); padding: 0px 30px 20px 40px; }	
+.Layout #Main #B #Guide #table #C { background-image: url(../images/TypeC/03/table_bottom.gif); height: 28px; }	
+.Layout #Main #B #Guide #timeWait { font: bold 25px arial; color: blue; }
+.Layout #Main #B #contents #Ltitle { height: 37px; background-image: url(../images/TypeC/03/title_bg.gif); background-repeat: repeat-x; background-position: top; }	
+.Layout #Main #B #contents #Rtitle { width: 240px; padding-left: 20px; }	
+.Layout #Main #B #contents #L { padding: 30px 10px 0px 20px; vertical-align: top; }
+.Layout #Main #B #contents #L #Button { text-align: left; padding-right: 5px; }
+.Layout #Main #B #contents #reply { width: 180px; padding: 30px 0px 0px 0px; vertical-align: top;  }
+.Layout #Main #B #contents #reply Table { text-align: center; font: 13px; width: 100%; }
+.Layout #Main #B #contents #reply Table #title td { font-weight: bold; border-top: 2px solid #6666cc; border-bottom: 1px solid #6666cc; }
+.Layout #Main #B #contents #reply Table Td { padding: 5px 1px 5px 1px; border-bottom: 1px solid #CCC; }
+.Layout #Main #B #contents #reply Table .L { background-color: #FBFBFB; border-right: 1px solid #CCC; width: 50px; }
+.Layout #Main #B #test_end { text-align: center; margin-top: 60px; margin-right: 0px; }	
+.Layout #Main #B #test_end #img { vertical-align: bottom; padding-bottom: 40px; }
+.Layout #Main #B #test_end #table { width: 575px; font-size: 12px; line-height: 180%; LIST-STYLE-IMAGE: url(../images/TypeC/03/list.gif); }	
+.Layout #Main #B #test_end #table #A { background-image: url(../images/TypeC/03/end.gif); background-position: top; background-repeat: no-repeat; height: 150px; }	
+.Layout #Main #B #test_end #table #B { background-image: url(../images/TypeC/03/table_main.gif); padding: 0px 30px 20px 40px; }	
+.Layout #Main #B #test_end #table #C { background-image: url(../images/TypeC/03/table_bottom.gif); height: 28px; }
+.Layout #Main #B #resubmit { text-align: center; margin-top: 60px;  }	
+.Layout #Main #B #resubmit #table { width: 570px; font-size: 12px; line-height: 180%; LIST-STYLE-IMAGE: url(../images/TypeC/03/list.gif); }	
+.Layout #Main #B #resubmit #table #A { background-image: none; }	
+.Layout #Main #B #resubmit #table #B { padding: 40px 30px 0px 30px; }	
+.Layout #Main #C { background-image: url(../images/TypeC/03/main_right.gif); }
+
+.Layout #Bottom { height: 80px; }
+.Layout #Bottom #A { background-image: url(../images/TypeC/03/bottom_left.gif); }
+.Layout #Bottom #B { background-image: url(../images/TypeC/03/bottom_bg.gif); text-align: right; vertical-align: bottom; padding-bottom: 0px; }
+.Layout #Bottom #C { background-image: url(../images/TypeC/03/bottom_right.gif); }

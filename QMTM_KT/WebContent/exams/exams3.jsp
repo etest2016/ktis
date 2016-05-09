@@ -1,0 +1,115 @@
+<%
+//******************************************************************************
+//   프로그램 : exams3.jsp
+//   모 듈 명 : 수동출제
+//   설    명 : 문제관리 > 수동출제
+//   테 이 블 : q
+//   자바파일 : 
+//   작 성 일 : 2008-12-05
+//   작 성 자 : 이테스트 석준호
+//   수 정 일 : 
+//   수 정 자 : 
+//	 수정사항 : 
+//******************************************************************************
+%>
+
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page import="qmtm.*, qmtm.qman.*, qmtm.qman.question.*, java.sql.*" %>
+
+<%
+	response.setDateHeader("Expires", 0);
+	request.setCharacterEncoding("EUC-KR");
+
+	String userid = CommonUtil.get_Cookie(request, "userid");
+	if (userid == null) { userid= ""; } else { userid = userid.trim(); }
+
+	if (userid.length() == 0) {
+		response.sendRedirect("/error/page_error.jsp");
+	
+		if(true) return ;
+	}
+
+    // 신규 등록 문제 가져오기
+	QListBean[] rst = null; 
+
+	try {
+		rst = QListUtil.getNewQ(userid);
+	} catch(Exception ex) {
+		response.sendRedirect("/error/db_error.jsp?err_msg="+ex.getMessage());
+
+		if(true) return;
+	}
+%>
+
+<HTML>
+ <HEAD>
+  <TITLE> 수동출제 </TITLE>
+  <link rel="StyleSheet" href="../../css/style.css" type="text/css">
+ </HEAD>
+
+ <BODY>
+ 
+	<div id="main">	
+	
+			<div id="mainTop">
+				<div class="title">수동출제 <span>시험문제를 사용자가 선택하여 출제합니다</span></div>
+				<div class="location">Question Manager > <span>수동출제</span></div>
+			</div>
+
+			
+			※  문항 삭제 및 배열순서를 조정 후 [다음] 버튼을 클릭 하십시오.
+
+			<TABLE width="100%">
+				<TR>
+					<TD>선택된 문항 수: (<B>30</B>)문항</TD>
+					<TD align="right">
+						<a href="exams1.jsp" target="fraMain">이전,</a> 
+						*배열순서 
+						<SELECT NAME="">
+							<OPTION VALUE="" SELECTED>순서1
+							<OPTION VALUE="">
+						</SELECT>
+						<SELECT NAME="">
+							<OPTION VALUE="" SELECTED>순서2
+							<OPTION VALUE="">
+						</SELECT>
+						<SELECT NAME="">
+							<OPTION VALUE="" SELECTED>순서3
+							<OPTION VALUE="">
+						</SELECT>
+						, ..하기, <a href="exams4.jsp" target="fraMain">다음</a>
+					</TD>
+				</TR>
+			</TABLE>
+
+			<% 
+				if(rst != null){ 
+					for(int i = 0; i < rst.length; i++){
+			%>
+
+			<div class="box">
+				[문제코드: <%=rst[i].getId_q()%>]&nbsp;&nbsp;[단원: <%=rst[i].getQ_subject()%>]&nbsp;&nbsp;[문제유형: <%=rst[i].getQtype()%><!--1:ox형, 2:선다형, 3:복수답안형, 4:단답형, 5:논술형-->]&nbsp;&nbsp;[지문유무: <%=rst[i].getRefs()%>]&nbsp;&nbsp;[난이도: ]&nbsp;&nbsp;[용도: ]&nbsp;&nbsp;[검색어: ]
+			</div>
+
+			<TABLE width="97%" align="center" cellpadding="2" cellspacing="0">
+				<TR>
+					<TD rowspan="3" style="vertical-align: top;" width="20"><INPUT TYPE="checkbox" NAME=""></TD>
+					<TD><%=rst[i].getQ()%></TD>
+				</TR>
+				<!--정답-->
+				<TR>
+					<TD>(정답)</TD>
+				</TR>
+				<!--해설-->
+				<TR>
+					<TD>(해설)</TD>
+				</TR>				
+			</TABLE>
+
+			<% }} %>
+
+			
+	<jsp:include page="../copyright.jsp"/>
+
+</BODY>
+</HTML>

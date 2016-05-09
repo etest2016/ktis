@@ -1,0 +1,96 @@
+<%
+//******************************************************************************
+//   프로그램 : 
+//   모 듈 명 : 오류문항 신고
+//   설    명 : 
+//   테 이 블 : 
+//   자바파일 : qmtm.admin.qman.ChapterQmanBean, qmtm.admin.qman.ChapterQmanUtil              
+//   작 성 일 : 2008-12-05
+//   작 성 자 : 이테스트 석준호
+//   수 정 일 : 
+//   수 정 자 : 
+//	 수정사항 : 
+//******************************************************************************
+%>
+
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page import="qmtm.*, qmtm.qman.*, qmtm.qman.question.*, java.sql.*" %>
+
+<%
+	response.setDateHeader("Expires", 0);
+	request.setCharacterEncoding("EUC-KR");
+
+	String userid = CommonUtil.get_Cookie(request, "userid");
+	if (userid == null) { userid= ""; } else { userid = userid.trim(); }
+
+	if (userid.length() == 0) {
+		response.sendRedirect("/error/page_error.jsp");
+	
+		if(true) return ;
+	}
+
+    // 신규 등록 문제 가져오기
+	QListBean[] rst = null; 
+
+	try {
+		rst = QListUtil.getNewQ(userid);
+	} catch(Exception ex) {
+		response.sendRedirect("/error/db_error.jsp?err_msg="+ex.getMessage());
+
+		if(true) return;
+	}
+%>
+
+<HTML>
+<HEAD>
+<TITLE> :: 보관함 저장 :: </TITLE>
+<link rel="StyleSheet" href="../../../css/style.css" type="text/css">
+</HEAD>
+
+
+<BODY id="popup2">
+
+	<div id="top">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<Td id="left"></td>
+				<Td id="mid"><div class="title">보관함 <span>생성된 시험지를 저장할 보관함을 선택합니다.</span></div></td>
+				<Td id="right"></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="contents">
+
+		<table border="0" cellpadding ="0" cellspacing="0" width="100%">
+			<tr>
+				<td width="200">트리</td>
+				<td>
+					::시험지 보관 위치<br>
+					<table border="0" cellpadding ="0" cellspacing="0" id="tableD" width="100%">
+						<TR>
+							<TD id="left">보관위치</TD>
+							<TD><INPUT TYPE="text" NAME=""></TD>
+						</TR>
+						<TR>
+							<TD id="left">생성일</TD>
+							<TD>&nbsp;</TD>
+						</TR>
+						<TR>
+							<TD id="left">소유자</TD>
+							<TD>&nbsp;</TD>
+						</TR>
+					</TABLE>
+					<br>
+					※ 생성되는 시험지를 보관할 위치를 좌측의 "시험지 보관함" 카테고리에서 선택 후 [확인] 버튼을 클릭 하십시오.
+				</td>
+			</tr>
+		</table>
+
+		<div id="button">
+		<input type="image" value="확인" name="submit" src="../images/bt5_submit.gif" onfocus="this.blur();">&nbsp;
+		<input type="image" value="취소" onclick="window.close();" src="../images/bt5_cancle.gif" onfocus="this.blur();">
+		</div>
+
+</body>
+</HTML>
