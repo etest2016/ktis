@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 
 public class ExamKindBean {
 	
-	private String id_exam_kind;
+	private int id_exam_kind;
 	private String exam_kind;
-	private String rmk;
+	private String rmk; 
 
 	public ExamKindBean() {
 	}
 		
-	public void setId_exam_kind(String id_exam_kind) {
+	public void setId_exam_kind(int id_exam_kind) {
 		this.id_exam_kind = id_exam_kind;
 	}
 	public void setExam_kind(String exam_kind) {
@@ -21,7 +21,7 @@ public class ExamKindBean {
 		this.rmk = rmk;
 	}
 		
-	public String getId_exam_kind() {
+	public int getId_exam_kind() {
 		return id_exam_kind;
 	}
 	public String getExam_kind() {

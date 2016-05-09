@@ -20,14 +20,16 @@
 	response.setDateHeader("Expires", 0);
 	request.setCharacterEncoding("EUC-KR");
 
-	String id_exam_kind = request.getParameter("id_exam_kind");
-	if (id_exam_kind == null) { id_exam_kind= ""; } else { id_exam_kind = id_exam_kind.trim(); }
+	String param_exam_kind = request.getParameter("id_exam_kind");
+	if (param_exam_kind == null) { param_exam_kind= ""; } else { param_exam_kind = param_exam_kind.trim(); }
 
-	if (id_exam_kind.length() == 0) {
-		out.println(ComLib.getParameterChk("back"));
+	if (param_exam_kind.length() == 0) {
+		out.println(ComLib.getParameterChk("close"));
 
 	    if(true) return;
 	}
+	
+	int id_exam_kind = Integer.parseInt(param_exam_kind);
 
 	ExamKindBean rst = null;
 
@@ -40,7 +42,7 @@
     }
 %>
 
-<script language="javascript">
+<script type="text/javascript">
 	function edits() {
 		location.href="exam_kind_edit.jsp?id_exam_kind=<%=id_exam_kind%>";
 	}

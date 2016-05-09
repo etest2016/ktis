@@ -38,7 +38,7 @@
   <TITLE> Admin Main </TITLE>
   <link rel="StyleSheet" href="../../css/style.css" type="text/css">
 
-  <script language="JavaScript">
+  <script type="text/javascript">
 	function insert() {
 		window.open("exam_kind_insert.jsp","insert","top=0, left=0, width=400, height=300, scrollbars=no");
     }

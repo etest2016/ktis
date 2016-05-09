@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 
 public class ExamKindUtil
 {
-    public ExamKindUtil() {
+    public ExamKindUtil() { 
     }
 	
 	public static void insert(ExamKindBean bean) throws QmTmException
@@ -29,14 +29,14 @@ public class ExamKindUtil
         {
             cnn = DBPool.getConnection();
             stm = cnn.prepareStatement(sql.toString());
-            stm.setString(1, bean.getId_exam_kind());
+            stm.setInt(1, bean.getId_exam_kind());
             stm.setString(2, bean.getExam_kind());
 			stm.setString(3, bean.getRmk());
 
 			stm.execute();
         }
         catch (SQLException ex) {
-            throw new QmTmException("그룹구분 정보 등록하는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.insert]");
+            throw new QmTmException("그룹구분 정보 등록하는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.insert]" + ex.getMessage());
         }
         finally {
             if (stm != null) try { stm.close(); } catch (SQLException ex) {}
@@ -58,12 +58,12 @@ public class ExamKindUtil
             stm = cnn.prepareStatement(sql.toString());
 			stm.setString(1, bean.getExam_kind());
 			stm.setString(2, bean.getRmk());
-			stm.setString(3, bean.getId_exam_kind());
+			stm.setInt(3, bean.getId_exam_kind());
 
 			stm.execute();
         }
         catch (SQLException ex) {
-            throw new QmTmException("그룹구분 정보 수정하는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.update]");
+            throw new QmTmException("그룹구분 정보 수정하는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.update]" + ex.getMessage());
         }
         finally {
             if (stm != null) try { stm.close(); } catch (SQLException ex) {}
@@ -71,7 +71,7 @@ public class ExamKindUtil
         }
     }
 
-	public static void delete(String id_exam_kind) throws QmTmException
+	public static void delete(int id_exam_kind) throws QmTmException
     {
         Connection cnn = null; PreparedStatement stm = null; String sql = "";
 
@@ -81,12 +81,12 @@ public class ExamKindUtil
         {
             cnn = DBPool.getConnection();
             stm = cnn.prepareStatement(sql);
-			stm.setString(1, id_exam_kind);
+			stm.setInt(1, id_exam_kind);
 
 			stm.execute();
         }
         catch (SQLException ex) {
-            throw new QmTmException("그룹구분 정보 삭제하는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.delete]");
+            throw new QmTmException("그룹구분 정보 삭제하는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.delete]" + ex.getMessage());
         }
         finally {
             if (stm != null) try { stm.close(); } catch (SQLException ex) {}
@@ -112,13 +112,13 @@ public class ExamKindUtil
                 beans.add(bean);
             }
             if (bean == null) {
-                return null;
+                return null; 
             } else {
                 return (ExamKindBean[]) beans.toArray(new ExamKindBean[0]);
             }
         }
         catch (SQLException ex) {
-            throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.getBeans]");
+            throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.getBeans]" + ex.getMessage());
         }
         finally {
             if (rst != null) try { rst.close(); } catch (SQLException ex) {}
@@ -132,16 +132,16 @@ public class ExamKindUtil
 		
 		try {
             ExamKindBean bean = new ExamKindBean();
-            bean.setId_exam_kind(rst.getString(1));
+            bean.setId_exam_kind(rst.getInt(1));
             bean.setExam_kind(rst.getString(2));
             bean.setRmk(rst.getString(3));
             return bean;
         } catch (SQLException ex) {
-            throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.makeBeans]");
+            throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.makeBeans]" + ex.getMessage());
         }
     }
 
-	public static ExamKindBean getBean(String id_exam_kind) throws QmTmException 
+	public static ExamKindBean getBean(int id_exam_kind) throws QmTmException 
 	{
         Connection cnn = null; PreparedStatement stm = null; ResultSet rst = null;
 
@@ -150,7 +150,7 @@ public class ExamKindUtil
 	    try {
 			cnn = DBPool.getConnection();
 			stm = cnn.prepareStatement(sql);
-			stm.setString(1, id_exam_kind);			
+			stm.setInt(1, id_exam_kind);			
 			rst = stm.executeQuery();
 			if (rst.next()) {
 				return makeBean(rst);
@@ -158,7 +158,7 @@ public class ExamKindUtil
 				return null;
 			}
 		} catch (SQLException ex) {
-			throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.getBean]");
+			throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.getBean]" + ex.getMessage());
 		} finally { 
 			if (rst != null) try { rst.close(); } catch (SQLException ex) {}
 			if (stm != null) try { stm.close(); } catch (SQLException ex) {}
@@ -175,7 +175,7 @@ public class ExamKindUtil
             bean.setRmk(rst.getString(2));
             return bean;
         } catch (SQLException ex) {
-            throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.makeBean]");
+            throw new QmTmException("그룹구분 정보 읽어오는 중 인터넷 연결상태가 좋지 않습니다. [ExamKindUtil.makeBean]" + ex.getMessage());
         }
     }
 }

@@ -24,7 +24,7 @@
 	<title>:: 그룹구분 등록 :: </title>
 <link rel="StyleSheet" href="../../css/style.css" type="text/css">
 
-<script language="JavaScript">
+<script type="text/JavaScript">
 
 		function send() {
 			var frm = document.frmdata;

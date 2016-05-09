@@ -20,17 +20,19 @@
 	response.setDateHeader("Expires", 0);
     request.setCharacterEncoding("EUC-KR");
 
-    String id_exam_kind = request.getParameter("id_exam_kind"); // 그룹구분 코드
-	if (id_exam_kind == null) { id_exam_kind= ""; } else { id_exam_kind = id_exam_kind.trim(); }
+    String param_exam_kind = request.getParameter("id_exam_kind"); // 그룹구분 코드
+	if (param_exam_kind == null) { param_exam_kind= ""; } else { param_exam_kind = param_exam_kind.trim(); }
 
-	if (id_exam_kind.length() == 0) {
-		out.println(ComLib.getParameterChk("back"));
+	if (param_exam_kind.length() == 0) {
+		out.println(ComLib.getParameterChk("close"));
 
 	    if(true) return;
 	}
 
     String exam_kind = request.getParameter("exam_kind"); // 그룹구분
 	String rmk = request.getParameter("rmk"); // 설명
+	
+	int id_exam_kind = Integer.parseInt(param_exam_kind);
 	
 	ExamKindBean bean = new ExamKindBean();
 
@@ -48,7 +50,7 @@
     }
 %>
 
-<script language="javascript">
+<script type="text/javascript">
 	alert("정상적으로 수정되었습니다.");
 	window.opener.location.reload();
 	window.close();
