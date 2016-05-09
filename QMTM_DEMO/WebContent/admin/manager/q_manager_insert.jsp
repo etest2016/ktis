@@ -46,7 +46,7 @@
   <TITLE> :: 담당과목 추가 :: </TITLE>
   <link rel="StyleSheet" href="../../css/style.css" type="text/css">
   
-  <script language="JavaScript">
+  <script type="text/JavaScript">
 	function checks() {
 		var frm = document.form1;
 		var cnt = 0;

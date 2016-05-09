@@ -15,7 +15,6 @@
 
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page import="qmtm.CommonUtil, qmtm.ComLib, qmtm.tman.exam.ExamSchedule, qmtm.tman.exam.ExamScheduleBean, java.util.Date, java.util.Calendar " %>
-<%@ include file = "../../common/calendar.jsp" %>
 
 <%
 	response.setDateHeader("Expires", 0);
@@ -77,8 +76,18 @@
 <head>
 	<title></title>
 	<link rel="StyleSheet" href="../../css/style.css" type="text/css">
+	<link rel="stylesheet" href="../../js/jquery-ui-1.10.2/themes/base/jquery-ui.css" />
+	<script src="../../js/jquery-ui-1.10.2/jquery-1.9.1.js"></script>
+	<script src="../../js/jquery-ui-1.10.2/ui/jquery-ui.js"></script>
+	<script src="../../js/jquery-ui-1.10.2/ui/i18n/jquery.ui.datepicker-ko.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional['ko']);
+		$( ".date_picker" ).datepicker();
+	});
+	</script>
  
-	<script language="JavaScript">
+	<script type="text/JavaScript">
 		function send() {
 			var frm = document.form1;
 			
@@ -120,7 +129,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" id="tableA">
 			<tr id="bt3">
 				<td colspan="2">
-					<input type="text" class="input" name="exam_start" size="12" readonly onClick="MiniCal(this)" value="<%=exam_start%>"> ~ <input type="text" class="input" name="exam_end" size="12" readonly onClick="MiniCal(this)" value="<%=exam_end%>">&nbsp;&nbsp;<!--<input type="button" value="확인하기" onClick="send();">--><a href="javascript:send();"><img src="../../images/bt_exam_search_list_yj2.gif" align="absmiddle"></a>
+					<input type="text" class="input date_picker" name="exam_start" size="12" readonly value="<%=exam_start%>"> ~ <input type="text" class="input date_picker" name="exam_end" size="12" readonly value="<%=exam_end%>">&nbsp;&nbsp;<!--<input type="button" value="확인하기" onClick="send();">--><a href="javascript:send();"><img src="../../images/bt_exam_search_list_yj2.gif" align="absmiddle"></a>
 				</td>
 				<td colspan="4" align="right"><input type="button" value="달력으로 보기" class="form5" onClick="schedule();">&nbsp;&nbsp;<input type="button" value="엑셀파일 다운로드" class="form5" onClick="excel_down();"></td>
 			</tr>
