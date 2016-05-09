@@ -15,7 +15,7 @@
 %>
 
 <%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page import="qmtm.ComLib, qmtm.QmTm, qmtm.qman.question.QListGrid, qmtm.qman.question.QListGridBean, org.apache.commons.lang3.StringEscapeUtils " %>
+<%@ page import="qmtm.ComLib, qmtm.QmTm, qmtm.qman.question.QListGrid, qmtm.qman.question.QListGridBean " %>
 
 <%
 	response.setDateHeader("Expires", 0);
@@ -103,14 +103,14 @@
 			<td ><%=rst[i].getQ_subject()%></td>
 			<td ><%=rst[i].getChapter()%></td>
 			<td ><%=rst[i].getId_q()%></td>
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.removeAndDel(ComLib.htmlDel(rst[i].getQ())))%></td>			
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx1()))))%></td>
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx2()))))%></td>
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx3()))))%></td>
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx4()))))%></td>
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx5()))))%></td>
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.nullChk(rst[i].getCa()))%></td>
-			<td ><%=StringEscapeUtils.escapeHtml3(ComLib.nullChk(rst[i].getExplain()))%></td>
+			<td ><%=ComLib.removeAndDel(ComLib.htmlDel(rst[i].getQ()))%></td>			
+			<td ><%=ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx1())))%></td>
+			<td ><%=ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx2())))%></td>
+			<td ><%=ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx3())))%></td>
+			<td ><%=ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx4())))%></td>
+			<td ><%=ComLib.removeAndDel(ComLib.htmlDel(ComLib.nullChk(rst[i].getEx5())))%></td>
+			<td ><%=ComLib.nullChk(rst[i].getCa())%></td>
+			<td ><%=ComLib.nullChk(rst[i].getExplain())%></td>
 			<td ><%=qtype%></td>
 			<td ><%=rst[i].getExcount()%></td>
 			<td ><%=rst[i].getCacount()%></td>

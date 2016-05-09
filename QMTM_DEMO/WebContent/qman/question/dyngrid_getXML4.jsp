@@ -1,7 +1,7 @@
 <%@ page contentType="text/xml; charset=EUC-KR" %>
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.sql.*" %>
-<%@ page import = "org.apache.commons.lang3.StringEscapeUtils, qmtm.DBPool, qmtm.ComLib, qmtm.QmTmException, qmtm.qman.question.QListGrid4, qmtm.qman.question.QListGridBean" %>
+<%@ page import = "qmtm.DBPool, qmtm.ComLib, qmtm.QmTmException, qmtm.qman.question.QListGrid4, qmtm.qman.question.QListGridBean" %>
 
 <?xml version="1.0" encoding="EUC-KR"?>
 <% 	
@@ -60,12 +60,12 @@
 		{
 			String qtypes = rst[i].getQtype();
 
-			out.println("<row id=\"" + StringEscapeUtils.escapeXml(rst[i].getRownum()) + "\">");
-			out.println("<cell>" + StringEscapeUtils.escapeXml(rst[i].getId_q()) + "</cell>");
-			out.println("<cell>" + StringEscapeUtils.escapeXml(qtypes) + "</cell>");
-			out.println("<cell>" + StringEscapeUtils.escapeXml(StringEscapeUtils.escapeHtml3(ComLib.removeAndDel(ComLib.htmlDel(rst[i].getQ())))) + "</cell>");
-			out.println("<cell>" + StringEscapeUtils.escapeXml(ComLib.nullChk2(rst[i].getCa())) + "</cell>");
-			out.println("<cell>" + StringEscapeUtils.escapeXml(rst[i].getRegdate()) + "</cell>");
+			out.println("<row id=\"" + rst[i].getRownum() + "\">");
+			out.println("<cell>" + rst[i].getId_q() + "</cell>");
+			out.println("<cell>" + qtypes + "</cell>");
+			out.println("<cell>" + ComLib.removeAndDel(ComLib.htmlDel(rst[i].getQ())) + "</cell>");
+			out.println("<cell>" + ComLib.nullChk2(rst[i].getCa()) + "</cell>");
+			out.println("<cell>" + rst[i].getRegdate() + "</cell>");
 			out.println("</row>");
 		}
 		

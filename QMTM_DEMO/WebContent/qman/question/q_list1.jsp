@@ -73,7 +73,7 @@
   <script type="text/javascript" src="../../js/jquery.js"></script>
   <script type="text/javascript" src="../../js/jquery.etest.poster.js"></script>
   <script type="text/javascript" src="../../js/tablesort.js"></script>
-  <SCRIPT LANGUAGE="JavaScript" src="../../js/Script.js"></Script>
+  <SCRIPT type="text/JavaScript" src="../../js/Script.js"></Script>
 
   <link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxgrid.css">
   <link rel="stylesheet" type="text/css" href="../../dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_web.css">
@@ -82,7 +82,7 @@
   <script src="../../dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
   <script src="../../dhtmlxGrid/codebase/ext/dhtmlxgrid_srnd.js"></script>
 
-  <SCRIPT LANGUAGE="JavaScript">
+  <SCRIPT type="text/JavaScript">
   <!--
 
     var pt_q_edit = "<%=pt_q_edit%>";

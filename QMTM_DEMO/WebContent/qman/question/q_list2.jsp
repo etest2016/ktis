@@ -80,7 +80,7 @@
   <script src="../../dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
   <script src="../../dhtmlxGrid/codebase/ext/dhtmlxgrid_srnd.js"></script>
 
-  <SCRIPT LANGUAGE="JavaScript">
+  <SCRIPT type="text/JavaScript">
   <!--
 
 	var pt_q_edit = "<%=pt_q_edit%>";
