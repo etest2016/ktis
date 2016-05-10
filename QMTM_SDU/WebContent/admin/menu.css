@@ -1,0 +1,23 @@
+body { 
+	font: normal 12px gulim, dotum;
+	scrollbar-face-color:#FFFFFF; 
+	scrollbar-shadow-color:#CCC;
+	scrollbar-highlight-color: #CCC;
+	scrollbar-3dlight-color: #FFFFFF;
+	scrollbar-darkshadow-color: #FFFFFF;
+	scrollbar-track-color: #FFFFFF;
+	scrollbar-arrow-color: #CCC; 
+}
+
+body, div, table, tr, td { font: normal 12px gulim; } 
+
+a:link { text-decoration: none; color: #666666; font-weight: normal; }
+a:visited { text-decoration: none; color: #666666; font-weight: normal; }
+a:active { text-decoration: none; }
+a:hover { color: #999; text-decoration: underline; font-weight: normal; }
+
+#menu { width:250px; }
+#menu #Top { width: 250px; height: 75px; }
+#menu #Main { background-image: url(img/bg_Lmenu_m.gif); background-repeat: repeat-y; padding: 3px 0px 0px 0px;}
+#menu #Main div { padding: 8px 10px 5px 30px; background-image: url(../../images/menu_bg.gif); background-repeat: no-repeat; height: 28px; margin-left:35px; }
+#menu #Bottom { width: 250px; height: 30px; background-image: url(img/bg_Lmenu_b.gif); background-repeat: no-repeat; }

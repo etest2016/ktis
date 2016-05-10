@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+<!-- 
+	<Resource name="jdbc/etest" auth="Container"
+			  type="javax.sql.DataSource"	
+			  driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+			  url="jdbc:sqlserver://192.168.0.111:1433;databaseName=lgcns_v40"
+			  username="sa"
+			  password="dhdnjf2011!@#"
+			  maxActive="50"
+			  maxIdle="50"
+			  maxWait="-1" 
+	/>
+ -->	
+ 
+ 	<Resource name="jdbc/etestdev" auth="Container"
+			  type="javax.sql.DataSource"	
+			  driverClassName="net.sourceforge.jtds.jdbc.Driver"
+			  url="jdbc:jtds:sqlserver://localhost:1433/SDU_V350;useCursors=true"
+			  username="sa"
+			  password="dhdnjf2011!@#"
+			  maxActive="50"
+			  maxIdle="50"
+			  maxWait="-1" 
+	/>
+	
+ 	<Resource name="jdbc/lgdtest" auth="Container"
+			  type="javax.sql.DataSource"	
+			  driverClassName="net.sourceforge.jtds.jdbc.Driver"
+			  url="jdbc:jtds:sqlserver://172.19.79.17:2433/GHRDDB;useCursors=true"
+			  username="ghr_mgr"
+			  password="ghr_mgr13@"
+			  maxActive="50"
+			  maxIdle="50"
+			  maxWait="-1" 
+	/>	
+	
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+
+    <!-- Uncomment this to enable Comet connection tacking (provides events
+         on session expiration as well as webapp lifecycle) -->
+    <!--
+    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
+    -->
+
+</Context>

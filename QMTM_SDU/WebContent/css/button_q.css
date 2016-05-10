@@ -1,0 +1,204 @@
+.bt100
+{
+    FONT-WEIGHT: bold;
+    BACKGROUND-IMAGE: url(../images/bt_100.gif);
+    WIDTH: 100px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 6px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.bt120
+{
+    FONT-WEIGHT: bold;
+    BACKGROUND-IMAGE: url(../images/bt_120.gif);
+    WIDTH: 120px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 6px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.bt150
+{
+    FONT-WEIGHT: bold;
+    BACKGROUND-IMAGE: url(../images/bt_150.gif);
+    WIDTH: 150px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 6px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.btA50
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 0px;
+    BACKGROUND: url(../images/btA_50.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: bold 12px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 50px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 7px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.btA80
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 0px;
+    BACKGROUND: url(../images/btA_80.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: bold 12px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 80px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 7px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.btA120
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 0px;
+    BACKGROUND: url(../images/btA_120.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: bold 12px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 120px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 7px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.btA140
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 0px;
+    BACKGROUND: url(../images/btA_140.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: bold 12px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 140px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 7px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.btA150
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 0px;
+    BACKGROUND: url(../images/btA_150.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: bold 12px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 150px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 7px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.btA180
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 0px;
+    BACKGROUND: url(../images/btA_180.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: bold 12px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 180px;
+    cursor: pointer;
+    COLOR: #ffffff;
+    PADDING-TOP: 7px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 26px;
+    TEXT-ALIGN: center
+}
+.btB45
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 2px;
+    BACKGROUND: url(../images/btB_45.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: 11px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 45px;
+    cursor: pointer;
+    COLOR: #5692b6;
+    PADDING-TOP: 5px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 21px;
+    TEXT-ALIGN: center
+}
+.btB70
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 2px;
+    BACKGROUND: url(../images/btB_70.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: 11px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 70px;
+    cursor: pointer;
+    COLOR: #5692b6;
+    PADDING-TOP: 5px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 21px;
+    TEXT-ALIGN: center
+}
+.btB80
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 2px;
+    BACKGROUND: url(../images/btB_80.gif) no-repeat;
+    PADDING-BOTTOM: 0px;
+    FONT: 11px Arial;
+    BORDER-LEFT: 0px;
+    WIDTH: 80px;
+    cursor: pointer;
+    COLOR: #5692b6;
+    PADDING-TOP: 5px;
+    BORDER-BOTTOM: 0px;
+    LETTER-SPACING: -1px;
+    HEIGHT: 21px;
+    TEXT-ALIGN: center
+}

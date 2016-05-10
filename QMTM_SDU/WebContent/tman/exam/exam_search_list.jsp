@@ -1,0 +1,159 @@
+<%
+//******************************************************************************
+//   프로그램 : exam_search_list.jsp
+//   모 듈 명 : 시험검색 관리 페이지
+//   설    명 : 시험검색 관리 페이지
+//   테 이 블 : exam_m
+//   자바파일 : qmtm.CommonUtil, qmtm.ComLib, qmtm.tman.exam.ExamListBean, qmtm.tman.exam.ExamList
+//   작 성 일 : 2013-02-14
+//   작 성 자 : 이테스트 석준호
+//   수 정 일 : 
+//   수 정 자 : 
+//	 수정사항 : 
+//******************************************************************************
+%>
+
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page import="qmtm.CommonUtil, qmtm.ComLib, qmtm.tman.exam.ExamListBean, qmtm.tman.exam.ExamList" %>
+<%@ include file = "/common/login_chk.jsp" %>
+<%
+	response.setDateHeader("Expires", 0);
+	request.setCharacterEncoding("EUC-KR");
+
+	String userid = (String)session.getAttribute("userid");
+	if (userid == null) { userid= ""; } else { userid = userid.trim(); }
+
+	if (userid.length() == 0) {
+		out.println(ComLib.getParameterChk("back"));
+
+	    if(true) return;
+	}
+
+	String usergrade = (String)session.getAttribute("usergrade"); // 권한
+
+	String field = request.getParameter("field");
+	if (field == null) { field = ""; } else { field = field.trim(); }
+
+	String str = request.getParameter("str");
+	if (str == null) { str = ""; } else { str = str.trim(); }
+	
+	if(!str.equals("")) {
+		str = ComLib.htmlDel(str);
+		str = str.toLowerCase().replaceAll("script","");
+		str = str.toLowerCase().replaceAll("union","");
+		str = str.toLowerCase().replaceAll("select","");
+		str = str.toLowerCase().replaceAll("update","");
+		str = str.toLowerCase().replaceAll("delete","");
+		str = str.toLowerCase().replaceAll("insert","");
+		str = str.toLowerCase().replaceAll("drop","");
+		str = str.toLowerCase().replaceAll("'","");
+		str = str.toLowerCase().replaceAll(";","");
+		str = str.toLowerCase().replaceAll("--","");
+		str = str.toLowerCase().replaceAll("||","");		
+	}
+	
+	// 검색된 시험정보 가지고오기
+	ExamListBean[] rst = null;
+
+	if(field.length() > 0 && str.length() > 0) {
+
+		try {
+			if(userid.equals("qmtm") || usergrade.equals("M")) {
+				rst = ExamList.getAdmSearchBeans(field, str, userid);
+			} else {
+				rst = ExamList.getSearchBeans(field, str, userid);
+			}
+	    } catch(Exception ex) {
+		    out.println(ComLib.getExceptionMsg(ex, "back"));
+
+		    if(true) return;
+	    }
+	}
+%>
+
+<html>
+<head>
+	<title></title>
+	<link rel="StyleSheet" href="../../css/style.css" type="text/css">
+  <script type="text/javascript" src="../../js/jquery.js"></script>
+   <script type="text/javascript" src="../../js/jquery.etest.poster.js"></script> 
+	<script language="JavaScript">
+		function send() {
+			var frm = document.form1;
+			
+			if(frm.str.value == "") {
+				alert("검색내용을 입력하세요");
+				frm.str.focus();
+				return;
+			} else {
+				frm.submit();
+			}
+		}
+
+		function edits(id_exam) {
+			$.posterPopup("exam_edit.jsp?id_exam="+id_exam,"edit","width=850, height=650, scrollbars=yes, top="+(screen.height-650)/2+", left="+(screen.width-850)/2);
+	    }
+	</script>
+
+</head>
+
+<BODY id="tman">
+	<form name="form1" method="post" action="exam_search_list.jsp">
+
+	<div id="main">
+
+		<div id="mainTop">
+			<div class="title">시험 검색 <span>검색할 항목을 선택 후 검색내용을 입력하세요.</span></div><div align="right" style="font: bold 14px dotum; color: #000;"><img src="../../images/icon_location.gif"> 시험관리 > 시험 검색</div>	
+		</div>
+
+		<TABLE cellpadding="0" cellspacing="0" border="0" width="100%" id="tablea">
+			<tr id="bt3">
+				<td colspan="9">
+					<select name="field">
+					<option value="a.title" <% if(field.equals("a.title")) { %> selected <% } %>>시험명</option>
+					<option value="c.name" <% if(field.equals("c.name")) { %> selected <% } %>>출제자 성명</option>
+					<option value="a.userid" <% if(field.equals("a.userid")) { %> selected <% } %>>출제자 아이디</option>
+					</select>&nbsp;&nbsp;
+					
+					<input type="text" class="input" name="str" size="15" value="<%=str%>" onClick="document.form1.str.value == ''">&nbsp;&nbsp;<!--<input type="button" value="확인하기" onClick="send();">--><a href="javascript:send();"><img src="../../images/bt_exam_search_list_yj2.gif" align="absmiddle"></a>
+				</td>
+			</tr>
+		
+			<tr id="tr">
+				<td>과정명</td>
+				<td>시험제목</td>
+				<td>시험가능여부</td>
+				<td>시험기간</td>
+				<td>성적조회기간</td>
+				<td>출제자</td>
+			</tr>
+	<%
+		if(rst == null) {
+	%>
+			<tr>
+				<td class="blank" colspan="6">검색한 시험목록이 없습니다.</td>
+			</tr>
+	<%
+		} else {
+			for(int i = 0; i < rst.length; i++) {
+
+	%>
+			<tr id="td" align="center">
+			    <td align="left">&nbsp;<%=rst[i].getCourse()%></td>
+				<td align="left">&nbsp;<a href="exam_list.jsp?id_exam=<%=rst[i].getId_exam()%>"><%=rst[i].getTitle()%></a></td>
+				<td><%=rst[i].getYn_enable()%></td>
+				<td><%=rst[i].getExam_start1()%>~<br><%=rst[i].getExam_end1()%></td>
+				<td><%=rst[i].getStat_start()%>~<br><%=rst[i].getStat_end()%></td>
+				<td><%=rst[i].getName()%></td>
+			</tr>
+	<%
+			}
+		}
+	%>
+		</table>
+
+	</div>
+	<jsp:include page="../../copyright.jsp"/>
+	
+ </BODY>
+</HTML>

@@ -1,0 +1,57 @@
+body { margin-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; color: #707070; font-size: 12px; list-style: url(file:../images/li.gif); line-height: 150%; }
+
+a:link { text-decoration: none; color: #008DA0; font-weight: bold; }
+a:visited { text-decoration: none; color: #008DA0; font-weight: bold; }
+a:active { text-decoration: none; }
+a:hover { color: #22D0D7; text-decoration: none; font-weight: bold;}
+
+.linkA a:link { text-decoration: none; color: red; font-weight: bold; }
+.linkA a:visited { text-decoration: none; color: #008DA0; font-weight: bold; }
+.linkA a:active { text-decoration: none; }
+.linkA a:hover { text-decoration: none; color: #22D0D7; font-weight: bold;}
+
+img { border: 0px; margin: 0px; vertical-align: bottom; }
+Div, input { font-size: 12px; line-height: 150%; }
+
+hr{ border-top: 1px dotted #FFF; border-bottom: 1px solid #FFF; margin-top: 10px;  margin-bottom: 10px; } 
+
+.link { cursor: pointer; text-decoration: none; color: #008DA0; font-weight: bold; }
+
+.examType { width: 173px; height: 151px; }
+.examType Div { position: absolute; top: 230px; left: 727px; width: 173px; height: 100%; padding: 85px 10px 10px 17px; font: bold 11px; line-height: 115%; letter-spacing: -1px; visibility: hidden; color: #92A6BE; }
+.examType #examA { background-image: url(../images/examA.gif); background-repeat: no-repeat; }
+.examType #examB { background-image: url(../images/examB.gif); background-repeat: no-repeat; }
+.examType #examC { background-image: url(../images/examC.gif); background-repeat: no-repeat; }
+
+.layout { height: 100%; width: 100%; }
+.top { height: 80px; }
+.Left { width:10px; background-image: url(../images/bg_sub.gif); background-repeat: repeat-x; background-position: bottom; }
+.Right { background-image: url(../images/bg_img.jpg); background-position: bottom; background-repeat: no-repeat; }
+.Bottom { height: 130px; padding-left: 10px; background-image: url(../images/bg_bottom.gif); background-repeat: repeat-x; }
+
+.CenterTop { vertical-align: top; background-image: url(../images/bg_title_admin.gif); background-repeat: no-repeat; background-position: top; height: 80px; }
+.CenterTop #L { margin-top: 30px; margin-left: 15px; float: left; }
+.CenterTop #R { float: right; position: relative; text-align: right; font: 11px dotum; color: #a6a6a6; LIST-STYLE-POSITION: inside; LIST-STYLE-IMAGE: url(../images/location.gif); height: 50px; margin-top: 27px; margin-right: 15px; padding-top: 16px; letter-spacing: -1px; }
+.CenterMain { width: 900px; height: 540px; background-image: url(../images/bg_center_admin.gif); background-repeat: repeat-y; vertical-align: top; padding: 10px 30px 25px 30px; }
+.CenterMain #subt { margin-bottom: 15px;}
+.CenterMain #box { margin: 0px 15px 0px 15px; width: 100%; }
+.CenterMain #mytest { background-image: url(../images/mytest.gif);  background-repeat: no-repeat; height: 30px; padding-top: 1px; padding-left: 65px; font-weight: bold; }
+.CenterMain #L { float: left; }
+.CenterMain #R { float: right; }
+
+.Submenu{ 	z-index: 1; visibility: hidden; position: absolute; top: 66px; height: 29px; background-image: url(../images/subm_center.gif); background-repeat: repeat-x;  }
+.Submenu TD { font: bolder 12px; color: #FFF; }
+
+.button { margin-top: 15px; margin-bottom: 10px; }
+.point { color: #85a8cc; }
+.point_s { color: #85a8cc; font: 11px dotum; }
+.point_b { color: #85a8cc; font-weight: bold; }
+.FAQ { padding: 45px 60px 20px 40px; line-height: 140%; width: 347px; }
+.FAQ li { list-style: none; background-image: url(../images/list_faq.gif); background-position: left; background-repeat: no-repeat;  padding-left: 20px; border-bottom: 1px dotted #CFCFCF; font: 11px dotum; }
+.FAQ A { color: #708090; }
+
+/* form 스타일 지정 */
+input,textarea { font: normal 12px;}
+.input { border:1px solid ; border-color:#bbbbbb; line-height:120%; }
+.text { FONT-SIZE: 12px; color: #4C4B48; text-decoration: none; LINE-HEIGHT: 15px;border: 1px solid #C2C2C2; background-color:#F5F5F5; }
+.box { border:1px solid #c3cad9; background-color: #f8fafc; padding: 10px 20px 10px 20px; width: 100%; }
