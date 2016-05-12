@@ -131,7 +131,7 @@ public class AnsInwonListGrid
 		sql.append("Select a.userid, a.name ");
 		sql.append("From qt_userid a, qt_course_user b, exam_m c ");
 		sql.append("Where c.id_exam = ? and c.id_auth_type = '1' and a.userid = b.userid and b.id_course = c.id_course ");
-		sql.append("      and b.id_subject = c.id_subject and b.course_year = c.course_year and b.course_no = c.course_no ");
+		sql.append("      and b.course_year = c.course_year and b.course_no = c.course_no ");
 		sql.append("      and b.userid not in (select userid from exam_ans where id_exam = ?) ");
 		sql.append(") as cnts ");
 		
@@ -175,7 +175,7 @@ public class AnsInwonListGrid
 		sql.append("	  Select a.userid, a.name, ROW_NUMBER() OVER (ORDER BY a.userid) AS RowNum ");
 		sql.append("      From qt_userid a inner JOIN qt_course_user b ON a.userid = b.userid AND ");
 		sql.append("           b.userid not in (select userid from exam_ans where id_exam = ?) ");     
-		sql.append("           inner JOIN exam_m c ON b.id_course = c.id_course and b.id_subject = c.id_subject and b.course_year = c.course_year and b.course_no = c.course_no ");
+		sql.append("           inner JOIN exam_m c ON b.id_course = c.id_course and b.course_year = c.course_year and b.course_no = c.course_no ");
 		sql.append("      Where c.id_exam = ? and c.id_auth_type = '1' ");
 		sql.append("      ) as MyDerivedTable ");
 		sql.append("WHERE MyDerivedTable.RowNum BETWEEN ? AND (? + ?) ");
@@ -467,7 +467,7 @@ public class AnsInwonListGrid
 		sql.append("Select a.userid, a.name ");
 		sql.append("From qt_userid a, qt_course_user b, exam_m c ");
 		sql.append("Where c.id_exam = ? and c.id_auth_type = '1' and a.userid = b.userid and b.id_course = c.id_course ");
-		sql.append("      and b.id_subject = c.id_subject and b.course_year = c.course_year and b.course_no = c.course_no ");
+		sql.append("      and b.course_year = c.course_year and b.course_no = c.course_no ");
 		sql.append("      and b.userid not in (select userid from exam_ans where id_exam = ?) ");
 		if(userid.equals("")) {
 			sql.append("  and a.name like '%" + name + "%' ");
@@ -529,7 +529,7 @@ public class AnsInwonListGrid
 		sql.append("	  Select a.userid, a.name, ROW_NUMBER() OVER (ORDER BY a.userid) AS RowNum ");
 		sql.append("      From qt_userid a inner JOIN qt_course_user b ON a.userid = b.userid AND ");
 		sql.append("           b.userid not in (select userid from exam_ans where id_exam = ?) ");     
-		sql.append("           inner JOIN exam_m c ON b.id_course = c.id_course and b.id_subject = c.id_subject and b.course_year = c.course_year and b.course_no = c.course_no ");
+		sql.append("           inner JOIN exam_m c ON b.id_course = c.id_course and b.course_year = c.course_year and b.course_no = c.course_no ");
 		sql.append("      Where c.id_exam = ? and c.id_auth_type = '1' ");
 		
 		if(userid.equals("")) {

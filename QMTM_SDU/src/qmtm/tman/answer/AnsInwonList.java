@@ -246,7 +246,7 @@ public class AnsInwonList
 		sql.append("Select a.userid, a.name, a.sosok1, a.sosok2, a.level ");
 		sql.append("From qt_userid a, qt_course_user b, exam_m c ");
 		sql.append("Where c.id_exam = ? and c.id_auth_type = '1' and a.userid = b.userid and b.id_course = c.id_course ");
-		sql.append("      and b.id_subject = c.id_subject and b.course_year = c.course_year and b.course_no = c.course_no ");
+		sql.append("      and b.course_year = c.course_year and b.course_no = c.course_no ");
 		sql.append("      and b.userid not in (select userid from exam_ans where id_exam = ?) ");
 
         try
@@ -664,7 +664,7 @@ public class AnsInwonList
 		if(id_auth_type == 1) {
 			sql.append("Select count(b.userid) as totcnt ");
 			sql.append("From exam_m a, qt_course_user b ");
-			sql.append("Where a.id_exam = ? and a.id_course = b.id_course and a.id_subject = b.id_subject ");
+			sql.append("Where a.id_exam = ? and a.id_course = b.id_course  ");
 			sql.append("      and a.course_year = b.course_year and a.course_no = b.course_no ");
 		} else if(id_auth_type == 2) {
 			sql.append("Select count(userid) as totcnt ");

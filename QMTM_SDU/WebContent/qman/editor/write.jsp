@@ -31,16 +31,26 @@
 	    if(true) return;
 	}
 	
-	String web_path = evbean.getQmtm_web_home();
-	String ftp_path = evbean.getHttp_files_url();
-		
-	String ftp_url = evbean.getFtp_host_ip();
-	String ftp_port = evbean.getFtp_port();
-	String ftp_dir = evbean.getFtp_files_dir();
-	String ftp_username = evbean.getFtp_id();
-	String ftp_pwd = evbean.getFtp_password();
-		
-	FTPClient ftpClient = null;
+	String web_path = "";
+	
+	try {
+		web_path = EnvUtil.getWEB("qmtm");
+	} catch(Exception ex) {		
+		out.println(ComLib.getExceptionMsg(ex, "back"));
+
+	    if(true) return;
+	}
+
+	String ftp_path = "";
+	
+	// FTP 경로 변경
+	try {
+		ftp_path = EnvUtil.getFTP("qmtm");
+	} catch(Exception ex) {		
+		out.println(ComLib.getExceptionMsg(ex, "back"));
+
+	    if(true) return;
+	}
 	
 	try
 	{

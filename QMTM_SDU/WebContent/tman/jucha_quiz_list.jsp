@@ -129,8 +129,12 @@
 				<td>퀴즈명</td>				
 				<td>출제문항</td>
 				<td>배점</td>
-				<td>제한시간</td>				
+				<td>제한시간(분)</td>				
 				<td>관리</td>
+			</tr>
+			<tr id="td" align="center">
+				<td>1</td>
+				<td colspan="6"><font color="red"><strong>퀴즈평가가 운영되지 않는 주차 입니다.</strong></font></td>																	
 			</tr>
 
 	<%
@@ -144,39 +148,39 @@
 	<%
 		} else {
 			for(int i = 0; i < rst.length; i++) {
-				if(i == 1) {
-	%>
-					<tr id="td" align="center">
-					<td><%=rst[i].getJucha()%></td>
-					<td><%=rst[i].getQuiz_start()%> ~ <%=rst[i].getQuiz_end()%></td>
-					<td>1주차 퀴즈</td>
-					<td>4 문항</td>
-					<td>40 점</td>
-					<td>20 분</td>
-					<td><input type="button" value="퀴즈평가수정" onclick="edits(<%=rst[i].getJucha()%>);" class="form">&nbsp;&nbsp;<input type="button" value="출제문항확인" class="form">&nbsp;&nbsp;<input type="button" value="응시현황관리" class="form"></td>																	
-				</tr>
-	<%				
-				} else {
 	%>
 			<tr id="td" align="center">
 				<td><%=rst[i].getJucha()%></td>
 				<td><%=rst[i].getQuiz_start()%> ~ <%=rst[i].getQuiz_end()%></td>
 				<% if(rst[i].getId_exam().equals("")) { %>
 					<td colspan="4">퀴즈평가 미등록 <font color="red"><strong>(출제가능문항 : <%=rst[i].getJucha_cnt()%>&nbsp;&nbsp;배점 :<%=rst[i].getJucha_allotting()%>)</strong></font></td>
-					<td><%if(pt_exam_edit.equals("Y")) { %><input type="button" value="퀴즈평가등록" onclick="simpleInsert(<%=rst[i].getJucha()%>);" class="form4">&nbsp;&nbsp;<input type="button" value="퀴즈평가 문제은행방식등록" onclick="bankInsert(<%=rst[i].getJucha()%>);" class="form4"><% }else { %><input type="button" value="퀴즈평가화등록하기" onclick="alert('퀴즈평가 등록 권한이 없습니다.');" class="form4">&nbsp;&nbsp;<input type="button" value="퀴즈평가 문제은행방식등록" onclick="alert('퀴즈평가 등록 권한이 없습니다.');" class="form4"><% } %></td>
+					<td>
+						<%if(pt_exam_edit.equals("Y")) { %>
+						<input type="button" value="퀴즈평가등록" onclick="simpleInsert(<%=rst[i].getJucha()%>);" class="form4">&nbsp;&nbsp;
+						<input type="button" value="퀴즈평가 문제은행방식등록" onclick="bankInsert(<%=rst[i].getJucha()%>);" class="form4">
+						<% }else { %>
+						<input type="button" value="퀴즈평가화등록하기" onclick="alert('퀴즈평가 등록 권한이 없습니다.');" class="form4">&nbsp;&nbsp;
+						<input type="button" value="퀴즈평가 문제은행방식등록" onclick="alert('퀴즈평가 등록 권한이 없습니다.');" class="form4">
+						<% } %>
+					</td>
 				<% } else { %>
 					<td><%=rst[i].getTitle()%></td>
 					<td><%=rst[i].getQcount()%></td>
 					<td><%=rst[i].getAllotting()%></td>
-					<td><%=rst[i].getLimittime()/60%></td>
-					<td><%if(pt_exam_edit.equals("Y")) { %><input type="button" value="퀴즈평가수정" onclick="edits(<%=rst[i].getJucha()%>);" class="form4"><% } %>&nbsp;<a href="exam/exam_list.jsp?id_exam=<%=rst[i].getId_exam()%>" onfocus="this.blur();"><img src="../images/bt3_exam_info.gif"></a></td>
+					<td><%=rst[i].getLimittime()/60%>분</td>
+					<td><%if(pt_exam_edit.equals("Y")) { %><input type="button" value="퀴즈평가수정" onclick="edits('<%=rst[i].getId_exam()%>');" class="form4"><% } %>&nbsp;<a href="exam/exam_list.jsp?id_exam=<%=rst[i].getId_exam()%>" onfocus="this.blur();"><img src="../images/bt3_exam_info.gif"></a></td>
 				<% } %>												
 			</tr>
 	<%
-				}
 			}
 		}
 	%>
+	<% if (rst.length == 12) { %>
+			<tr id="td" align="center">
+				<td>14</td>
+				<td colspan="6"><font color="red"><strong>퀴즈평가가 운영되지 않는 주차 입니다.</strong></font></td>																	
+			</tr>
+	<% } %>
 		</table>
 
 	</div>

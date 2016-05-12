@@ -29,7 +29,7 @@ public class ExamPaper {
 		StringBuffer sql = new StringBuffer();  
 		
 		sql.append("SELECT a.nr_q, a.id_q, a.ex_order, a.allotting, a.page, a.q_no1, a.q_no2, b.id_ref, b.id_qtype, ");
-		sql.append("       b.excount, b.cacount, b.q, b.ex1, b.ex2, b.ex3, b.ex4, b.ex5, b.ex6, b.ex7, b.ex8, ");
+		sql.append("       b.excount, b.cacount, b.q, b.ex1, b.ex2, b.ex3, b.ex4, b.ex5, ");
 		sql.append("       b.ca, b.yn_caorder, b.yn_case, b.yn_blank, b.hint, b.explain, b.id_valid_type, ");
 		sql.append("       b.yn_single_line, b.ex_rowcnt, b.id_difficulty1, c.chapter ");
 		sql.append("FROM exam_paper2 as a inner join q as b ");
@@ -83,20 +83,17 @@ public class ExamPaper {
 			bean.setEx3(rst.getString(15));
 			bean.setEx4(rst.getString(16));
 			bean.setEx5(rst.getString(17));
-			bean.setEx6(rst.getString(18));
-			bean.setEx7(rst.getString(19));
-			bean.setEx8(rst.getString(20));
-			bean.setCa(rst.getString(21));
-			bean.setYn_caorder(rst.getString(22));
-			bean.setYn_case(rst.getString(23));
-			bean.setYn_blank(rst.getString(24));
-			bean.setHint(rst.getString(25));
-			bean.setExplain(rst.getString(26));
-			bean.setId_valid_type(rst.getInt(27));			
-			bean.setYn_single_line(rst.getString(28));
-			bean.setEx_rowcnt(rst.getInt(29));
-			bean.setId_difficulty1(rst.getInt(30));			
-			bean.setQ_chapter(rst.getString(31));
+			bean.setCa(rst.getString(18));
+			bean.setYn_caorder(rst.getString(19));
+			bean.setYn_case(rst.getString(20));
+			bean.setYn_blank(rst.getString(21));
+			bean.setHint(rst.getString(22));
+			bean.setExplain(rst.getString(23));
+			bean.setId_valid_type(rst.getInt(24));			
+			bean.setYn_single_line(rst.getString(25));
+			bean.setEx_rowcnt(rst.getInt(26));
+			bean.setId_difficulty1(rst.getInt(27));			
+			bean.setQ_chapter(rst.getString(28));
 			
 			return bean;
 		} catch (SQLException ex) {
@@ -113,7 +110,7 @@ public class ExamPaper {
 		StringBuffer sql = new StringBuffer();   
 		
 		sql.append("SELECT a.nr_q, a.id_q, a.ex_order, a.allotting, a.page, a.q_no1, a.q_no2, b.id_ref, b.id_qtype, ");
-		sql.append("       b.excount, b.cacount, b.q, b.ex1, b.ex2, b.ex3, b.ex4, b.ex5, b.ex6, b.ex7, b.ex8, ");
+		sql.append("       b.excount, b.cacount, b.q, b.ex1, b.ex2, b.ex3, b.ex4, b.ex5, ");
 		sql.append("       b.ca, b.yn_caorder, b.yn_case, b.yn_blank, b.hint, b.explain, b.id_valid_type, ");
 		sql.append("       c.reftitle, c.refbody1, c.refbody2, c.refbody3, b.yn_single_line, b.ex_rowcnt, b.id_difficulty1 ");
 		sql.append("FROM exam_paper2 as a inner join q as b ");
@@ -167,23 +164,20 @@ public class ExamPaper {
 			bean.setEx3(rst.getString(15));
 			bean.setEx4(rst.getString(16));
 			bean.setEx5(rst.getString(17));
-			bean.setEx6(rst.getString(18));
-			bean.setEx7(rst.getString(19));
-			bean.setEx8(rst.getString(20));
-			bean.setCa(rst.getString(21));
-			bean.setYn_caorder(rst.getString(22));
-			bean.setYn_case(rst.getString(23));
-			bean.setYn_blank(rst.getString(24));
-			bean.setHint(rst.getString(25));
-			bean.setExplain(rst.getString(26));
-			bean.setId_valid_type(rst.getInt(27));
-			bean.setReftitle(rst.getString(28));
-			bean.setRefbody1(rst.getString(29));
-			bean.setRefbody2(rst.getString(30));
-			bean.setRefbody3(rst.getString(31));
-			bean.setYn_single_line(rst.getString(32));
-			bean.setEx_rowcnt(rst.getInt(33));
-			bean.setId_difficulty1(rst.getInt(34));
+			bean.setCa(rst.getString(18));
+			bean.setYn_caorder(rst.getString(19));
+			bean.setYn_case(rst.getString(20));
+			bean.setYn_blank(rst.getString(21));
+			bean.setHint(rst.getString(22));
+			bean.setExplain(rst.getString(23));
+			bean.setId_valid_type(rst.getInt(24));
+			bean.setReftitle(rst.getString(25));
+			bean.setRefbody1(rst.getString(26));
+			bean.setRefbody2(rst.getString(27));
+			bean.setRefbody3(rst.getString(28));
+			bean.setYn_single_line(rst.getString(29));
+			bean.setEx_rowcnt(rst.getInt(30));
+			bean.setId_difficulty1(rst.getInt(31));
 
 			if (bean.getId_qtype() == 5) { // id_qtype == 5 : ³í¼úÇü
                 long id_q = bean.getId_q();

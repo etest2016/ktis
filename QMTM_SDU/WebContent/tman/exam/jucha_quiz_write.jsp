@@ -53,7 +53,7 @@
 	String course_year = arrTerm_id[0];
 	String course_no = arrTerm_id[1];	
 
-    /* 해당 년도 학기 과정별 주차 퀴즈정보 가지고오기
+    /* 해당 년도 학기 과정별 주차 퀴즈정보 가지고오기 */
 	QuizJuchaBean rst = null;
 
 	try {
@@ -62,7 +62,7 @@
 		out.println(ComLib.getExceptionMsg(ex, "close"));
 
 		if(true) return;
-	}*/
+	}
 %>
 
 <html>
@@ -127,14 +127,21 @@
 				<td id="left">&nbsp;주차</td>
 				<td>&nbsp;<%=jucha%> 주차</td>
 				<td id="left">&nbsp;응시기간</td>
-				<td>&nbsp;2016-05-01 06:00 ~ 2016-05-03 23:59</td>
+				<td>&nbsp;<%=rst.getQuiz_start()%> ~ <%=rst.getQuiz_end() %></td>
 			</tr>
 
 			<tr>
 				<td id="left">&nbsp;출제문항수</td>
-				<td>&nbsp;5 문항&nbsp;&nbsp; <input type="button" value="출제문항미리보기" class="form" onClick="preview();"></td>
+				<td>
+					&nbsp;<%=rst.getJucha_cnt()%> 문항&nbsp;&nbsp; 
+					<% if (rst.getJucha_cnt() != 0) { %>
+					<input type="button" value="출제문항미리보기" class="form" onClick="preview();">
+					<% } else { %>
+					<input type="button" value="출제문항미리보기" class="form" onClick="alert('등록된 문항이 없습니다.');">
+					<% } %>
+				</td>
 				<td id="left">&nbsp;총배점</td>
-				<td>&nbsp;30 점</td>
+				<td>&nbsp;<%=rst.getJucha_allotting()%> 점</td>
 			</tr>
 				
 			<tr>
@@ -159,7 +166,12 @@
 
 	</div>
 	<div id="button">
-		<input type="button" value="등록하기" class="form6" onClick="checks();">&nbsp;&nbsp;&nbsp;<input type="button" value="취소하기" class="form6" onClick="window.close();">
+		<% if (rst.getJucha_cnt() != 0) { %>
+		<input type="button" value="등록하기" class="form6" onClick="checks();">&nbsp;&nbsp;&nbsp;
+		<% } else { %>
+		<input type="button" value="등록하기" class="form6" onClick="alert('등록된 문항이 없습니다.');">&nbsp;&nbsp;&nbsp;
+		<% } %>
+		<input type="button" value="취소하기" class="form6" onClick="window.close();">
 	</div>	
 
 	</form>

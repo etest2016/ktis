@@ -78,11 +78,11 @@ public class ExamUtil
         sql.append("INSERT INTO exam_m (id_exam, id_course, id_subject, course_year, course_no, title, guide, id_exam_kind, yn_enable, exam_start1, exam_end1, ");
 		sql.append("                    login_start, login_end, id_exam_type, id_auth_type, yn_stat, stat_start, stat_end, yn_open_qa, u_avg_basis, yn_open_score_direct, ");
 		sql.append("                    log_option, web_window_mode, yn_sametime, limittime, qcount, allotting, id_randomtype, id_ltimetype, id_movepage, yn_viewas, ");
-		sql.append("                    qcntperpage, id_exlabel, fontname, fontsize, paper_type, userid, exam_pwd_yn, exam_pwd_str, id_category, yn_activex, success_score, yn_success_score, exam_method) ");		
+		sql.append("                    qcntperpage, id_exlabel, fontname, fontsize, paper_type, userid) ");		
         sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ");
 		sql.append("        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ");
 		sql.append("        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ");
-		sql.append("        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+		sql.append("        ?, ?, ?, ?, ?, ?) ");
 		
         try
         {
@@ -129,14 +129,6 @@ public class ExamUtil
 			stm.setInt(35, bean.getFontsize());
 			stm.setInt(36, bean.getPaper_type());
 			stm.setString(37, bean.getUserid());
-			stm.setString(38, bean.getExam_pwd_yn());
-			stm.setString(39, bean.getExam_pwd_str());
-			stm.setString(40, bean.getId_category());
-			stm.setString(41, bean.getYn_activex());
-			stm.setDouble(42, bean.getSuccess_score());
-			stm.setString(43, bean.getYn_success_score());
-			stm.setString(44, bean.getExam_method());
-			
 			stm.execute();
         }
         catch (SQLException ex) {
@@ -156,8 +148,8 @@ public class ExamUtil
 		sql.append("Select id_course, id_subject, title, guide, id_exam_kind, yn_enable, exam_start1, exam_end1, login_start, login_end, ");
 		sql.append("       id_exam_type, id_auth_type, yn_stat, stat_start, stat_end, yn_open_qa, u_avg_basis, yn_open_score_direct, ");
 		sql.append("       log_option, web_window_mode, yn_sametime, limittime, qcount, allotting, id_randomtype, id_movepage, ");
-		sql.append("       yn_viewas, qcntperpage, id_exlabel, fontname, fontsize, paper_type, exam_pwd_yn, exam_pwd_str, ");
-		sql.append("       id_category, course_year, course_no, yn_activex, success_score, yn_success_score, exam_method ");
+		sql.append("       yn_viewas, qcntperpage, id_exlabel, fontname, fontsize, paper_type,  ");
+		sql.append("       course_year, course_no ");
 		sql.append("From exam_m ");
 		sql.append("Where id_exam = ? ");
 				
@@ -220,16 +212,9 @@ public class ExamUtil
 			bean.setFontname(rst.getString(30));
 			bean.setFontsize(rst.getInt(31));
 			bean.setPaper_type(rst.getInt(32));
-			bean.setExam_pwd_yn(rst.getString(33));
-			bean.setExam_pwd_str(rst.getString(34));
 			
-			bean.setId_category(rst.getString(35));			
-			bean.setCourse_year(rst.getString(36));
-			bean.setCourse_no(rst.getString(37));
-			bean.setYn_activex(rst.getString(38));
-			bean.setSuccess_score(rst.getDouble(39));
-			bean.setYn_success_score(rst.getString(40));
-			bean.setExam_method(rst.getString(41));
+			bean.setCourse_year(rst.getString(33));
+			bean.setCourse_no(rst.getString(34));
 						
             return bean;
         } catch (SQLException ex) {
@@ -254,7 +239,7 @@ public class ExamUtil
 		sql.append("                  log_option = ?, web_window_mode = ?, yn_sametime = ?, limittime = ?, ");
 		sql.append("                  qcount = ?, allotting = ?, id_randomtype = ?, id_movepage = ?, yn_viewas = ?, ");
 		sql.append("                  qcntperpage = ?, id_exlabel = ?, fontname = ?, fontsize = ?, paper_type = ?, ");
-		sql.append("                  exam_pwd_yn = ?, exam_pwd_str = ?, yn_activex = ?, course_year = ?, course_no = ?, success_score = ?, yn_success_score = ?, exam_method = ? ");
+		sql.append("                  course_year = ?, course_no = ? ");
         sql.append("Where id_exam = ? ");
 
         try
@@ -296,15 +281,9 @@ public class ExamUtil
 			stm.setString(27, bean.getFontname());
 			stm.setInt(28, bean.getFontsize());
 			stm.setInt(29, bean.getPaper_type());			
-			stm.setString(30, bean.getExam_pwd_yn());
-			stm.setString(31, bean.getExam_pwd_str());
-			stm.setString(32, bean.getYn_activex());
-			stm.setString(33, bean.getCourse_year());
-			stm.setString(34, bean.getCourse_no());
-			stm.setDouble(35, bean.getSuccess_score());
-			stm.setString(36, bean.getYn_success_score());
-			stm.setString(37, bean.getExam_method());
-			stm.setString(38, bean.getId_exam());
+			stm.setString(30, bean.getCourse_year());
+			stm.setString(31, bean.getCourse_no());
+			stm.setString(32, bean.getId_exam());
 			} else {
 			stm.setInt(7, bean.getId_exam_type());
 			stm.setInt(8, bean.getId_auth_type());
@@ -329,15 +308,9 @@ public class ExamUtil
 			stm.setString(25, bean.getFontname());
 			stm.setInt(26, bean.getFontsize());
 			stm.setInt(27, bean.getPaper_type());
-			stm.setString(28, bean.getExam_pwd_yn());
-			stm.setString(29, bean.getExam_pwd_str());
-			stm.setString(30, bean.getYn_activex());
-			stm.setString(31, bean.getCourse_year());
-			stm.setString(32, bean.getCourse_no());	
-			stm.setDouble(33, bean.getSuccess_score());
-			stm.setString(34, bean.getYn_success_score());
-			stm.setString(35, bean.getExam_method());
-			stm.setString(36, bean.getId_exam());
+			stm.setString(28, bean.getCourse_year());
+			stm.setString(29, bean.getCourse_no());	
+			stm.setString(30, bean.getId_exam());
 			}
 
 			stm.execute();

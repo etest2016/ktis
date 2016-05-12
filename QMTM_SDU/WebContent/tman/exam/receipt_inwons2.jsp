@@ -205,11 +205,8 @@
 		<table border="0" cellpadding ="0" cellspacing="0" id="tableA" width="90%" style="margin-bottom: 0px;">
 			<tr id="tr">
 				<td width="5%">NO</td>
-				<td width="12%">아이디</td>
-				<td width="12%">성명</td>
-				<td width="20%">소속1</td>
-				<td width="20%">소속2</td>
-				<td width="10%">직급</td>
+				<td width="30%">아이디</td>
+				<td width="30%">성명</td>
 				<td>등록일자</td>
 			</tr>
 		</table>
@@ -230,11 +227,8 @@
 				<tr id="td" align="center">								
 					
 					<td width="5%">&nbsp;<%=i+1%></td>
-					<td width="12%"><%=rst[i].getUserid()%></td>					
-					<td width="12%"><%=rst[i].getName()%></td>
-					<td width="20%">&nbsp;<%=rst[i].getSosok1()%></td>
-					<td width="20%">&nbsp;<%=rst[i].getSosok2()%></td>
-					<td width="10%">&nbsp;<%=rst[i].getLevel()%></td>
+					<td width="30%"><%=rst[i].getUserid()%></td>					
+					<td width="30%"><%=rst[i].getName()%></td>
 					<td>&nbsp;<%=rst[i].getRegdate()%></td>					
 				</tr>
 				<%

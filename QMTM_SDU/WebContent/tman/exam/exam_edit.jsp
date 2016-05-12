@@ -46,13 +46,6 @@
 	    if(true) return;
     }
     
-    String success_score = "";
-
-	if(exams.getYn_success_score().equals("Y")) {
-		success_score = String.valueOf(exams.getSuccess_score());
-	} else {
-		success_score = "";
-	}
 	
 	// 시험지 생성유무 체크
 	int exam_cnt = 0;
@@ -67,16 +60,6 @@
 
 	int id_exam_kinds = exams.getId_exam_kind();
 	
-	SubjectTmanBean bean = null;
-
-	try {
-		bean = SubjectTmanUtil.getLectureBean(exams.getId_course(), exams.getId_subject());
-	} catch(Exception ex) {
-		out.println(ComLib.getExceptionMsg(ex, "close"));
-
-	    if(true) return;
-	}
-		
 	// 보기표시유형 가지고오기
 	RexlabelBean[] rst2 = null;
 
@@ -134,7 +117,6 @@
 		paper_change(<%=exams.getPaper_type()%>); // 시험지 미리보기 이미지 초기값 셋팅 
 		idexlabels(<%=exams.getId_exlabel()%>, "<%=exams.getFontname()%>", <%=exams.getFontsize()%>); // 보기표시유형, 글꼴, 글자크기 초기값 셋팅
 		selects(<%=exams.getId_auth_type()%>); // 시험인증유형(로그인 : 0, 과정 : 1, 접수 : 2)
-		pwd_check(); // 시험 비밀번호 셋팅
 	}
 
 	function idexlabels(selects, selects2, selects3) {
@@ -409,28 +391,22 @@
 		$.posterPopup("receipt_inwons2.jsp?id_exam=<%=id_exam%>&id_course=<%=exams.getId_course()%>&id_subject=<%=exams.getId_subject()%>&course_year=<%=exams.getCourse_year()%>&course_no=<%=exams.getCourse_no()%>","receipts2","width=1050, height=680, scorollbars=yes");
 	}
 
-	function pwd_check() {
+	function setRadioCl(e) {
+		var srcEl = getSrc(e);
+		var ra = srcEl.form[srcEl.name];
 		
-		var frm = document.form1;
-		
-		if(frm.exam_pwd_yn.checked) {
-			document.all.pwd_str.style.display = "block";
-		} else {
-			document.all.pwd_str.style.display = "none";
+		for (var i=0;i<ra.length;i++) {
+			if(ra[i].checked) {
+				ra[i].onpropertychange = function(e){getSrc(e).click();};
+			}
+			else {
+				ra[i].onclick = function() {return false;};
+			}
 		}
 	}
 	
-	function pass_check() {
-		
-		var frm = document.form1;
-		
-		if(frm.yn_success_score.checked) {
-			frm.success_score.disabled = false;
-			frm.success_score.value = "<%=exams.getSuccess_score()%>";
-		} else {
-			frm.success_score.disabled = true;
-			frm.success_score.value = 60;			
-		}
+	function getSrc(e) {
+		return e? e.target || e.srcElement : event.srcElement;
 	}
 	
 </script>
@@ -474,23 +450,6 @@
 					<td id="left" width="100"><li>교육년도/차수</td>
 					<td width=200><%=exams.getCourse_year()%>년/<%=exams.getCourse_no()%>차</td>
 				</tr>
-				<tr>
-					<td id="left" width="100"><li>강좌명</td>
-					<td colspan="3" ><%=bean.getSubject()%></td>
-				</tr>
-				<% if(bean.getId_category().substring(0,1).equals("E")) { %>
-				<tr>
-					<td id="left" width="100"><li>평가점수구분</td>
-					<td colspan="3"><select name="exam_method">
-					<option value="exam1" <%if(exams.getExam_method().equals("exam1")) { %>selected<% } %>>평가1</option>
-					<option value="exam2" <%if(exams.getExam_method().equals("exam2")) { %>selected<% } %>>평가2</option>
-					<option value="exam3" <%if(exams.getExam_method().equals("exam3")) { %>selected<% } %>>평가3</option>
-					<option value="exam4" <%if(exams.getExam_method().equals("exam4")) { %>selected<% } %>>평가4</option>
-					<option value="exam5" <%if(exams.getExam_method().equals("exam5")) { %>selected<% } %>>평가5</option>
-					</select></td>
-				</tr>	
-				<% } %>		
-				
 			</table>
 
 			<br>
@@ -499,42 +458,6 @@
 				<tr>
 					<td id="left"  width="100"><li>평가유형</td>
 					<td colspan="3"><div style="float: left;"><input type="radio" name="yn_sametime" value="N" onClick="yn_sametimes('N');" <% if(exams.getYn_sametime().equals("N")) { %> checked <% } %>>비동시평가<input type="radio" name="yn_sametime" value="Y" onClick="yn_sametimes('Y');" <% if(exams.getYn_sametime().equals("Y")) { %> checked <% } %>>동시평가</div>
-					</td>
-				</tr>
-				<tr>
-					<td id="left"><li>입장시작시간</td>
-					<td colspan="3"><div style="float: left;"><input type="text" class="input date_picker" name="login_start1" size="12" readonly value="<%=exams.getLogin_start().toString().substring(0,10)%>">
-					<select name="login_start2">
-					<% 
-						String jj = "";
-						for(int j=0; j<=23; j++) { 
-							if(j < 10) {
-								jj = "0"+String.valueOf(j);
-							} else {
-								jj = String.valueOf(j);
-							}
-					%>
-					<option value="<%=jj%>" <%if(exams.getLogin_start().toString().substring(11,13).equals(jj)) { %> selected <% } %>><%=jj%></option>
-					<% } %></select>
-					시<input type="text" class="input" name="login_start3" size="3" value="<%=exams.getLogin_start().toString().substring(14,16)%>"> 분<input type="text" class="input" name="login_start4" size="3" value="<%=exams.getLogin_start().toString().substring(17,19)%>"> 초</div>
-					</td>
-				</tr>
-				<tr>
-					<td id="left"><li>입장종료시간</td>
-					<td colspan="3"><div style="float: left;"><input type="text" class="input date_picker" name="login_end1" size="12" readonly value="<%=exams.getLogin_end().toString().substring(0,10)%>">
-					<select name="login_end2">
-					<% 
-						String jj2 = "";
-						for(int j=0; j<=23; j++) { 
-							if(j < 10) {
-								jj2 = "0"+String.valueOf(j);
-							} else {
-								jj2 = String.valueOf(j);
-							}
-					%>
-					<option value="<%=jj2%>" <%if(exams.getLogin_end().toString().substring(11,13).equals(jj2)) { %> selected <% } %>><%=jj2%></option>
-					<% } %></select>
-					시<input type="text" class="input" name="login_end3" size="3" value="<%=exams.getLogin_end().toString().substring(14,16)%>"> 분<input type="text" class="input" name="login_end4" size="3" value="<%=exams.getLogin_end().toString().substring(17,19)%>"> 초</div>
 					</td>
 				</tr>
 				<tr>
@@ -586,23 +509,26 @@
 			<table border="0" width="100%" cellpadding ="0" cellspacing="0" id="tableD">
 				<tr>
 					<td id="left" width="120"><li>시험유형</td>
-					<td><input type="radio" name="id_exam_type" value="0" <% if(exams.getId_exam_type() == 0) { %> checked <% } %>>평가형&nbsp;&nbsp;&nbsp;<input type="radio" name="id_exam_type" value="1" <% if(exams.getId_exam_type() == 1) { %> checked <% } %>>자유모의고사형</td>
+					<td><input type="radio" name="id_exam_type" value="0" <% if(exams.getId_exam_type() == 0) { %> checked <% } %>>평가형
+					<!-- 
+						&nbsp;&nbsp;&nbsp;<input type="radio" name="id_exam_type" value="1" <% if(exams.getId_exam_type() == 1) { %> checked <% } %>>자유모의고사형 
+					-->
+					</td>
 				</tr>			
 				<tr>
 					<td id="left"><li>시험인증유형</td>
-					<td><div style="float: left;"><input type="radio" name="id_auth_type" value="0" <% if(exams.getId_auth_type() == 0) { %> checked <% } %> onClick="selects(0);">로그인&nbsp;&nbsp;&nbsp;<input type="radio" name="id_auth_type" value="1" <% if(exams.getId_auth_type() == 1) { %> checked <% } %> onClick="selects(1);">과정&nbsp;&nbsp;&nbsp;<input type="radio" name="id_auth_type" value="2" <% if(exams.getId_auth_type() == 2) { %> checked <% } %> onClick="selects(2);">접수</div><div id="receipts2" style="float: left; margin-left: 10px;"><input type="button" value="과정대상자확인" onClick="receipt_inwon2()" class="form"></div><div id="receipts" style="float: left; margin-left: 10px;"><input type="button" value="접수대상자등록" onClick="receipt_inwon()" class="form"></div></td>
+					<td>
+						<div style="float: left;"><input type="radio" name="id_auth_type" value="1" <% if(exams.getId_auth_type() == 1) { %> checked <% } %> onClick="selects(1);">과정&nbsp;&nbsp;&nbsp;</div>
+						<div id="receipts2" style="float: left; margin-left: 10px;"><input type="button" value="과정대상자확인" onClick="receipt_inwon2()" class="form"></div>
+						<!--
+						<input type="radio" name="id_auth_type" value="0" <% if(exams.getId_auth_type() == 0) { %> checked <% } %> onClick="selects(0);">로그인&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="id_auth_type" value="2" <% if(exams.getId_auth_type() == 2) { %> checked <% } %> onClick="selects(2);">접수</div>
+						<div id="receipts" style="float: left; margin-left: 10px;">	<input type="button" value="접수대상자등록" onClick="receipt_inwon()" class="form"></div>
+						-->
+					</td>
 				</tr>
 			</table>
 			
-			<br>
-
-			<table border="0" width="100%" cellpadding ="0" cellspacing="0" id="tableD">
-				<tr>
-					<td id="left" width="120"><li>시험비밀번호</td>
-					<td><div style="float: left;"><input type="checkbox" name="exam_pwd_yn" value="Y" <% if(exams.getExam_pwd_yn().equals("Y")) { %> checked <% } %> onClick="pwd_check();">&nbsp;해당 시험에 비밀번호를 설정함</div><div id="pwd_str" style="float: left; margin-left: 15px;"><b>비밀번호 등록 :</b> <input type="text" name="exam_pwd_str" size="17" maxlength="15" value="<%=exams.getExam_pwd_str()%>"></div></td>
-				</tr>				
-			</table>	
-
 			<br>
 
 			<table border="0" width="100%" cellpadding ="0" cellspacing="0" id="tableD">
@@ -619,10 +545,6 @@
 					<td><input type="text" class="input" name="qcntperpage" size="5"  value="<%=exams.getQcntperpage()%>" <%if(exam_cnt> 0) {%> readonly <%}%>> 문제</td>
 				</tr>	
 				<tr>
-					<td id="left"><li>합격점수</td>
-					<td colspan="3"><input type="text" name="success_score" value="<%=success_score%>" size="5" <% if(!exams.getYn_success_score().equals("Y")) { %>disabled<% } %>> 점&nbsp;<input type="checkbox" name="yn_success_score" value="Y" <% if(exams.getYn_success_score().equals("Y")) { %>checked<% } %> onClick="pass_check();"> 해당 시험에 합격점수를 설정함</td>
-				</tr>			
-				<tr>
 					<td id="left"><li>페이지 이동방식</td>
 					<td colspan="3"><input type="radio" name="id_movepage" value="F" <% if(exams.getId_movepage().equals("F")) { %> checked <% } %>>이전, 다음 자유이동<input type="radio" name="id_movepage" value="N" <% if(exams.getId_movepage().equals("N")) { %> checked <% } %>>다음만 이동가능</td>
 				</tr>
@@ -636,9 +558,9 @@
 				<tr>
 					<td id="left" width="120"><li>출제유형</td>
 					<td style="line-height: 200%;">
-						<input type="radio" name="id_randomtype" value="NN" checked onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("NN")) { %> checked <% } %> <%if(exam_cnt> 0) {%> readonly <%}%>>섞지않음<br>
-						<input type="radio" name="id_randomtype" value="NQ" onClick="id_randomtypes(this.value);" <% if(exams.getId_randomtype().equals("NQ")) { %> checked <% } %> <%if(exam_cnt> 0) {%> readonly <%}%>>문제섞기&nbsp;&nbsp;&nbsp;<input type="radio" name="id_randomtype" value="NT" onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("NT")) { %> checked <% } %> <%if(exam_cnt> 0) {%> readonly <%}%>>문제 및 보기섞기<br>
-						<input type="radio" name="id_randomtype" value="YQ" onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("YQ")) { %> checked <% } %> <%if(exam_cnt> 0) {%> readonly <%}%>>문제추출 => 문제섞기&nbsp;&nbsp;&nbsp;<input type="radio" name="id_randomtype" value="YT" onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("YT")) { %> checked <% } %> <%if(exam_cnt> 0) {%> readonly <%}%>>문제추출 => 문제 및 보기섞기<hr>
+						<input type="radio" name="id_randomtype" value="NN" checked onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("NN")) { %> checked <% } %> <%if(exam_cnt> 0) {%> onfocus="setRadioCl(event);" <%}%>>섞지않음<br>
+						<input type="radio" name="id_randomtype" value="NQ" onClick="id_randomtypes(this.value);" <% if(exams.getId_randomtype().equals("NQ")) { %> checked <% } %> <%if(exam_cnt> 0) {%> onfocus="setRadioCl(event);" <%}%>>문제섞기&nbsp;&nbsp;&nbsp;<input type="radio" name="id_randomtype" value="NT" onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("NT")) { %> checked <% } %> <%if(exam_cnt> 0) {%> readonly <%}%>>문제 및 보기섞기<br>
+						<input type="radio" name="id_randomtype" value="YQ" onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("YQ")) { %> checked <% } %> <%if(exam_cnt> 0) {%> onfocus="setRadioCl(event);" <%}%>>문제추출 => 문제섞기&nbsp;&nbsp;&nbsp;<input type="radio" name="id_randomtype" value="YT" onClick="id_randomtypes(this.value)" <% if(exams.getId_randomtype().equals("YT")) { %> checked <% } %> <%if(exam_cnt> 0) {%> readonly <%}%>>문제추출 => 문제 및 보기섞기<hr>
 						&nbsp;<textarea name="configs" cols="70" rows="4" readonly></textarea>
 					</td>
 				
@@ -771,7 +693,7 @@
 			<table border="0" width="100%" cellpadding ="0" cellspacing="0" id="tableD">
 				<tr>
 					<td id="left" width="120"><li>기타 설정</td>
-					<td><input type="checkbox" name="web_window_mode" value="1" <%if(exams.getWeb_window_mode() == 1) { %> checked <% } %>>&nbsp;시험지를 전체창으로 표시함<br><input type="checkbox" name="log_option" value="Y" <%if(exams.getLog_option().equals("Y")) { %> checked <% } %>>&nbsp;시험지 응시자 상세로그 기능을 사용함<br><input type="checkbox" name="yn_activex" value="Y" <%if(exams.getYn_activex().equals("Y")) { %> checked <% } %>>&nbsp;시험지에 ACTIVEX 기능 사용함</td></td>
+					<td><input type="checkbox" name="web_window_mode" value="1" <%if(exams.getWeb_window_mode() == 1) { %> checked <% } %>>&nbsp;시험지를 전체창으로 표시함<br><input type="checkbox" name="log_option" value="Y" <%if(exams.getLog_option().equals("Y")) { %> checked <% } %>>&nbsp;시험지 응시자 상세로그 기능을 사용함<br></td>
 				</tr>
 			</table>
 		

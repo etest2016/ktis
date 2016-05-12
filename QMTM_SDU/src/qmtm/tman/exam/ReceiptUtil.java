@@ -23,7 +23,7 @@ public class ReceiptUtil
         Connection cnn = null; PreparedStatement stm = null; ResultSet rst = null; 
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append("Select a.userid, a.password, a.name, b.sosok1, b.sosok2, b.level, convert(varchar(16), a.regdate, 120) regdate ");
+		sql.append("Select a.userid, a.password, a.name, b.sosok1, convert(varchar(16), a.regdate, 120) regdate ");
 		sql.append("From qt_userid a, exam_receipt b ");
 		sql.append("Where b.id_exam = ? and a.userid = b.userid ");
 		if(field.equals("") || field == null) {
@@ -68,16 +68,18 @@ public class ReceiptUtil
         Connection cnn = null; PreparedStatement stm = null; ResultSet rst = null; 
 		StringBuffer sql = new StringBuffer();		
 		
-		sql.append("Select a.userid, a.password, a.name, a.sosok1, a.sosok2, a.level, convert(varchar(16), a.regdate, 120) regdate ");
+		sql.append("Select a.userid, a.password, a.name, a.sosok1, convert(varchar(16), a.regdate, 120) regdate ");
 		sql.append("From qt_userid a, exam_m b, qt_course_user c ");
 		sql.append("Where b.id_exam = ? and a.userid = c.userid and b.id_course = c.id_course and ");
-		sql.append("      b.id_subject = c.id_subject and b.course_year = c.course_year and b.course_no = c.course_no ");
+		sql.append("          b.course_year = c.course_year and b.course_no = c.course_no ");
 		if(field.equals("") || field == null) {
 		} else {
 			sql.append("  and " + field + " like '%" + str + "%' ");
 		}
 		sql.append("Order by a.name ");
 
+		//System.out.println(sql.toString());
+		
         try
         {
             Collection beans = new ArrayList();
@@ -117,9 +119,7 @@ public class ReceiptUtil
             bean.setPassword(rst.getString(2));
 			bean.setName(rst.getString(3));			
 			bean.setSosok1(rst.getString(4));
-			bean.setSosok2(rst.getString(5));
-			bean.setLevel(rst.getString(6));
-            bean.setRegdate(rst.getString(7));
+            bean.setRegdate(rst.getString(5));
             return bean;
         } catch (SQLException ex) {
             throw new QmTmException("대상 인원 정보 읽어오는 중 오류가 발생되었습니다. [ReceiptUtil.makeBeans] " + ex.getMessage());
@@ -131,7 +131,7 @@ public class ReceiptUtil
         Connection cnn = null; PreparedStatement stm = null; ResultSet rst = null; 
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append("Select userid, name, sosok1, sosok2, level ");
+		sql.append("Select userid, name, sosok1 ");
 		sql.append("From qt_userid ");
 		sql.append("Where " + field + " like '%'+?+'%' and userid not in ");
 		sql.append("(Select userid ");
@@ -177,8 +177,6 @@ public class ReceiptUtil
 			bean.setUserid(rst.getString(1));
 			bean.setName(rst.getString(2));
 			bean.setSosok1(rst.getString(3));
-			bean.setSosok2(rst.getString(4));
-			bean.setLevel(rst.getString(5));
             return bean;
         } catch (SQLException ex) {
             throw new QmTmException("회원 정보 읽어오는 중 오류가 발생되었습니다. [ReceiptUtil.makeSearch] " + ex.getMessage());
@@ -190,7 +188,7 @@ public class ReceiptUtil
         Connection cnn = null; PreparedStatement stm = null; ResultSet rst = null;
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append("Select a.userid, a.password, a.name, a.email, a.home_phone, a.mobile_phone, b.sosok1, b.sosok2, b.level, convert(varchar(16), a.regdate, 120) regdate ");
+		sql.append("Select a.userid, a.password, a.name, a.email, a.home_phone, a.mobile_phone, b.sosok1, convert(varchar(16), a.regdate, 120) regdate ");
 		sql.append("From qt_userid a, exam_receipt b ");
 		sql.append("Where b.id_exam = ? and a.userid = ? and a.userid = b.userid ");
 
@@ -226,9 +224,7 @@ public class ReceiptUtil
 			bean.setHome_phone(rst.getString(5));
 			bean.setMobile_phone(rst.getString(6));
 			bean.setSosok1(rst.getString(7));
-			bean.setSosok2(rst.getString(8));
-			bean.setLevel(rst.getString(9));
-            bean.setRegdate(rst.getString(10));
+            bean.setRegdate(rst.getString(8));
             return bean;
         } catch (SQLException ex) {
             throw new QmTmException("대상 인원 정보 읽어오는 중 오류가 발생되었습니다. [ReceiptUtil.makeBean] " + ex.getMessage());
@@ -300,8 +296,8 @@ public class ReceiptUtil
         Connection cnn = null; PreparedStatement stm = null; 
 		StringBuffer sql = new StringBuffer();
 
-        sql.append("INSERT INTO qt_userid(userid, password, name, sosok1, sosok2, regdate, level) ");
-        sql.append("VALUES (?, PWDENCRYPT(?), ?, ?, ?, getdate(), ?) ");
+        sql.append("INSERT INTO qt_userid(userid, password, name, sosok1, regdate) ");
+        sql.append("VALUES (?, PWDENCRYPT(?), ?, ?, getdate()) ");
 
         try
         {
@@ -311,12 +307,10 @@ public class ReceiptUtil
 			stm.setString(2, bean.getPassword());			
 			stm.setString(3, bean.getName());
 			stm.setString(4, bean.getSosok1());
-			stm.setString(5, bean.getSosok2());
-			stm.setString(6, bean.getLevel());
 
 			stm.execute();
 
-			getECnt(id_exam, userid, bean.getLevel(), bean.getSosok1(), bean.getSosok2());
+			getECnt(id_exam, userid, bean.getSosok1());
         }
         catch (SQLException ex) {
             throw new QmTmException("회원정보 등록 중 오류가 발생되었습니다. [ReceiptUtil.insertMember] " + ex.getMessage());	
@@ -333,7 +327,7 @@ public class ReceiptUtil
 		StringBuffer sql = new StringBuffer();
 
         sql.append("UPDATE qt_userid ");
-		sql.append("       SET name = ?, sosok1 = ?, sosok2 = ?, regdate = getdate(), level = ? ");
+		sql.append("       SET name = ?, sosok1 = ? ");
 		sql.append("Where userid = ? ");
 
         try
@@ -342,13 +336,11 @@ public class ReceiptUtil
             stm = cnn.prepareStatement(sql.toString());            
 			stm.setString(1, bean.getName());			
 			stm.setString(2, bean.getSosok1());
-			stm.setString(3, bean.getSosok2());
-			stm.setString(4, bean.getLevel());
-			stm.setString(5, userid);
+			stm.setString(3, userid);
 
 			stm.execute();
 
-			getECnt(id_exam, userid, bean.getLevel(), bean.getSosok1(), bean.getSosok2());
+			getECnt(id_exam, userid, bean.getSosok1());
         }
         catch (SQLException ex) {
             throw new QmTmException("회원정보 수정 중 오류가 발생되었습니다. [ReceiptUtil.updateMember] " + ex.getMessage());
@@ -364,8 +356,8 @@ public class ReceiptUtil
         Connection cnn = null; PreparedStatement stm = null; 
 		StringBuffer sql = new StringBuffer();
 
-        sql.append("Insert into exam_receipt(id_exam, userid, yn_pay, receipt_date, level, sosok1, sosok2) ");
-		sql.append("Select ?, userid, 'Y', getdate(), level, sosok1, sosok2 ");
+        sql.append("Insert into exam_receipt(id_exam, userid, yn_pay, receipt_date, sosok1) ");
+		sql.append("Select ?, userid, 'Y', getdate(), sosok1 ");
 		sql.append("From qt_userid ");
 		sql.append("Where userid = ? ");
 
@@ -387,7 +379,7 @@ public class ReceiptUtil
         }
     }
 
-	public static void getECnt(String id_exam, String userid, String level, String sosok1, String sosok2) throws QmTmException
+	public static void getECnt(String id_exam, String userid, String sosok1) throws QmTmException
 	{
 		Connection cnn = null; PreparedStatement stm = null; ResultSet rst = null; 
 		StringBuffer sql = new StringBuffer();
@@ -408,9 +400,9 @@ public class ReceiptUtil
             if (rst.next()) { results = rst.getInt("cnt"); }
 
 			if(results > 0) { 
-				updateExamReceipt(id_exam, userid, level, sosok1, sosok2);
+				updateExamReceipt(id_exam, userid, sosok1);
 			} else {
-				insertExamReceipt(id_exam, userid, level, sosok1, sosok2);
+				insertExamReceipt(id_exam, userid, sosok1);
 			}
         } catch (SQLException ex) {
             throw new QmTmException("시험대상인원 정보 읽어오는 중 오류가 발생되었습니다. [ReceiptUtil.getECnt] " + ex.getMessage());
@@ -421,13 +413,13 @@ public class ReceiptUtil
         }
 	}
 
-	public static void insertExamReceipt(String id_exam, String userid, String level, String sosok1, String sosok2) throws QmTmException
+	public static void insertExamReceipt(String id_exam, String userid, String sosok1) throws QmTmException
     {
         Connection cnn = null; PreparedStatement stm = null; 
 		StringBuffer sql = new StringBuffer();
 
-        sql.append("INSERT INTO exam_receipt(id_exam, userid, yn_pay, receipt_date, level, sosok1, sosok2) ");
-        sql.append("VALUES (?, ?, 'Y', getdate(), ?, ?, ?) ");
+        sql.append("INSERT INTO exam_receipt(id_exam, userid, yn_pay, receipt_date, sosok1) ");
+        sql.append("VALUES (?, ?, 'Y', getdate(), ?) ");
 
         try
         {
@@ -435,9 +427,7 @@ public class ReceiptUtil
             stm = cnn.prepareStatement(sql.toString());
             stm.setString(1, id_exam);
 			stm.setString(2, userid);
-			stm.setString(3, level);
-			stm.setString(4, sosok1);
-			stm.setString(5, sosok2);
+			stm.setString(3, sosok1);
 
 			stm.execute();
         }
@@ -450,24 +440,22 @@ public class ReceiptUtil
         }
     }
 
-	public static void updateExamReceipt(String id_exam, String userid, String level, String sosok1, String sosok2) throws QmTmException
+	public static void updateExamReceipt(String id_exam, String userid, String sosok1) throws QmTmException
     {
         Connection cnn = null; PreparedStatement stm = null; 
 		StringBuffer sql = new StringBuffer();
 
         sql.append("UPDATE exam_receipt ");
-		sql.append("       SET receipt_date = getdate(), level = ?, sosok1 = ?, sosok2 = ? ");
+		sql.append("       SET receipt_date = getdate(), sosok1 = ? ");
 		sql.append("Where id_exam = ? and userid = ? ");
 
         try
         {
             cnn = DBPool.getConnection();
             stm = cnn.prepareStatement(sql.toString());
-            stm.setString(1, level);
-			stm.setString(2, sosok1);
-			stm.setString(3, sosok2);
-			stm.setString(4, id_exam);
-			stm.setString(5, userid);
+			stm.setString(1, sosok1);
+			stm.setString(2, id_exam);
+			stm.setString(3, userid);
 
 			stm.execute();
         }
